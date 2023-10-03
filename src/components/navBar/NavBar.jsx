@@ -7,9 +7,19 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  return <div>NavBar</div>;
+  return (
+    <div className="NavBar">
+      <div className="navLeft">
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span>Follow Meet</span>
+        </Link>
+      </div>
+      <div className="navRight"></div>
+    </div>
+  );
 };
 
 export default NavBar;
