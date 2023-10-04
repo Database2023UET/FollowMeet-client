@@ -22,7 +22,9 @@ function App() {
         <NavBar />
         <div style={{ display: "flex" }}>
           <LeftBar />
-          <Outlet />
+          <div style={{ flex: 11 }}>
+            <Outlet />
+          </div>
           <RightBar />
         </div>
       </div>

@@ -1,0 +1,37 @@
+.RightBar {
+    flex: 4;
+
+    .container {
+
+        .item {
+
+            span {
+                color: grey;
+            }
+            
+            .user {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .userInfo {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                }
+
+                .buttons {
+                    display: flex;
+                    align-items: center;
+                    
+                }
+            }
+        }
+    }
+}
