@@ -20,6 +20,33 @@ const RightBar = () => {
             </div>
           </div>
         </div>
+        <div className="item">
+          <span>Latest Activities</span>
+          <div className="user">
+            <div className="userInfo">
+              <img
+                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
+                alt="Avatar"
+              />
+              <p>
+                <span>Megatron</span> liked your post
+              </p>
+            </div>
+            <span>3 min ago</span>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img
+                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
+                alt="Avatar"
+              />
+              <p>
+                <span>Megatron</span> commented on your post
+              </p>
+            </div>
+            <span>1 min ago</span>
+          </div>
+        </div>
       </div>
     </div>
   );
