@@ -3,6 +3,7 @@
     position: sticky;
     top: 70px;
     height: calc(100vh - 70px);
+    min-width: 150px;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
@@ -36,8 +37,11 @@
                 img {
                     width: 40px;
                     height: 40px;
+                    min-width: 40px;
+                    min-height: 40px;
+                    object-fit: cover;
                     border-radius: 50%;
-                    object-fit: cover;    
+
                 }
 
                 span {

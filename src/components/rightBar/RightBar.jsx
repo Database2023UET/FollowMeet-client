@@ -19,7 +19,44 @@ const RightBar = () => {
               <button>Dismiss</button>
             </div>
           </div>
+          <div className="user">
+            <div className="userInfo">
+              <img
+                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
+                alt="Avatar"
+              />
+              <span>Megatroll</span>
+            </div>
+            <div className="buttons">
+              <button>Follow</button>
+              <button>Dismiss</button>
+            </div>
+          </div>
         </div>
+        <div className="item">
+          <span>Friends</span>
+          <div className="user">
+            <div className="userInfo">
+              <img
+                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
+                alt="Avatar"
+              />
+              <span>Megatron</span>
+              <div className="online" />
+            </div>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img
+                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
+                alt="Avatar"
+              />
+              <span>Megatroll</span>
+            </div>
+            <span>8 min ago</span>
+          </div>
+        </div>
+
         <div className="item">
           <span>Latest Activities</span>
           <div className="user">

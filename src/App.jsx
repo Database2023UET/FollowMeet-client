@@ -18,14 +18,16 @@ function App() {
 
   const Layout = () => {
     return (
-      <div>
-        <NavBar />
-        <div style={{ display: "flex" }}>
-          <LeftBar />
-          <div style={{ flex: 11 }}>
-            <Outlet />
+      <div className="theme-dark">
+        <div>
+          <NavBar />
+          <div style={{ display: "flex" }}>
+            <LeftBar />
+            <div style={{ flex: 11 }}>
+              <Outlet />
+            </div>
+            <RightBar />
           </div>
-          <RightBar />
         </div>
       </div>
     );

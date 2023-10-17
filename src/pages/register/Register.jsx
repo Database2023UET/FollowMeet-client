@@ -24,7 +24,6 @@ const Register = () => {
                 placeholder="Male"
               />
               <label for="Male" style={{ color: "grey" }}>
-                {" "}
                 Male{" "}
               </label>
               <input
@@ -35,7 +34,6 @@ const Register = () => {
                 placeholder="Female"
               />
               <label for="Female" style={{ color: "grey" }}>
-                {" "}
                 Female
               </label>
             </div>
