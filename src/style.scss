@@ -10,16 +10,14 @@ h1 {
 $themes: (
     light: (
         textColor: #000,
-        backgroundColor: #fff,
-        logo: darkblue,
+        bg: #fff,
         bgSoft: #f6f3f3,
         textColorSoft: #555,
         border: lightgray,
     ),
     dark: (
         textColor: whitesmoke,
-        backgroundColor: #222,
-        logo: white,
+        bg: #222,
         bgSoft: #333,
         textColorSoft: lightgray,
         border: #444,

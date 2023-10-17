@@ -1,71 +1,87 @@
+@import "../../style.scss";
+
 .RightBar {
-    flex: 4;
-    position: sticky;
-    top: 70px;
-    height: calc(100vh - 70px);
-    overflow: scroll;
+    @include themify($themes) {
+        flex: 4;
+        position: sticky;
+        top: 70px;
+        height: calc(100vh - 70px);
+        overflow: scroll;
+        background-color: themed(bgSoft);
+        color: themed(textColorSoft);
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
-    .container {
-        padding: 20px;
-
-        .item {
-            -webkit-box-shadow: 3px 3px 10px 1px rgba(153,153,153,1);
-            -moz-box-shadow: 3px 3px 10px 1px rgba(153,153,153,1);
-            box-shadow: 3px 3px 10px 1px rgba(153,153,153,1);
+        .container {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
 
-            span {
-                color: rgb(16, 4, 58);
-                font-weight: 600;
-            }
-            
-            .user {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin: 20px 0px;
-                .userInfo {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
+            .item {
+                -webkit-box-shadow: 3px 3px 10px 1px rgba(153,153,153,1);
+                -moz-box-shadow: 3px 3px 10px 1px rgba(153,153,153,1);
+                box-shadow: 3px 3px 10px 1px rgba(153,153,153,1);
+                padding: 20px;
+                border-radius: 10px;
+                background-color: themed(bg);
 
-                    img {
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        object-fit: cover;
-                    }
-
-                    .online {
-                        width: 12px;
-                        height: 12px;
-                        border-radius: 50%;
-                        background-color: lime;
-                    }
+                p {
+                    color: themed(textColorSoft);
                 }
 
-                .buttons {
+                span {
+                    color: themed(textColorSoft);
+                    font-weight: 600;
+                }
+                
+                .user {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
-                    
-                    button {
-                        border: none;
-                        border-radius: 5px;
-                        padding: 5px;
-                        color: white;
-                        cursor: pointer;
+                    justify-content: space-between;
+                    margin: 20px 0px;
 
-                        &:first-child {
-                            background-color: #5271ff;
+                    .userInfo {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            object-fit: cover;
                         }
 
-                        &:last-child {
-                            background-color: #f0544f;
+                        .online {
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            background-color: lime;
+                        }
+                    }
+
+                    .buttons {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        
+                        button {
+                            border: none;
+                            border-radius: 5px;
+                            padding: 5px;
+                            color: white;
+                            cursor: pointer;
+
+                            &:first-child {
+                                background-color: #5271ff;
+                            }
+
+                            &:last-child {
+                                background-color: #f0544f;
+                            }
                         }
                     }
                 }
