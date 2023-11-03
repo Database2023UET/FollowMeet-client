@@ -1,7 +1,8 @@
-html, body {
+html,
+body {
     padding: 0;
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 h1 {
     margin: 0px;
@@ -13,31 +14,36 @@ $themes: (
         bg: #fff,
         bgSoft: #f6f3f3,
         textColorSoft: #555,
-        border: lightgray,
+        border: lightgray
     ),
     dark: (
         textColor: whitesmoke,
         bg: #222,
         bgSoft: #333,
         textColorSoft: lightgray,
-        border: #444,
-    ),
+        border: #444
+    )
 );
 
 @mixin themify($themes) {
     @each $theme, $map in $themes {
         .theme-#{$theme} & {
-            $theme-map: ()!global;
+            $theme-map: () !global;
             @each $key, $submap in $map {
                 $value: map-get(map-get($themes, $theme), "#{$key}");
-                $theme-map: map-merge($theme-map, ($key: $value)) !global;
+                $theme-map: map-merge(
+                    $theme-map,
+                    (
+                        $key: $value
+                    )
+                ) !global;
             }
-            @content; 
-                $theme-map: null !global;
+            @content;
+            $theme-map: null !global;
         }
     }
 }
 
-@function themed ($key) {
+@function themed($key) {
     @return map-get($theme-map, $key);
 }

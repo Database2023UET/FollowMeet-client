@@ -1,3 +1,4 @@
+import { light } from "@mui/material/styles/createPalette";
 import LeftBar from "./components/leftBar/LeftBar";
 import NavBar from "./components/navbar/Navbar";
 import RightBar from "./components/rightBar/RightBar";
@@ -12,13 +13,17 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
+import { useContext } from "react";
+import { DarkModeContext } from "./context/darkModeContext";
 
 function App() {
   const currentUser = true;
 
+  const { darkMode } = useContext(DarkModeContext);
+
   const Layout = () => {
     return (
-      <div className="theme-dark">
+      <div className={`theme-${darkMode ? "dark" : "light"}`}>
         <div>
           <NavBar />
           <div style={{ display: "flex" }}>
