@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     .card {
         width: 50%;
         display: flex;
@@ -13,98 +13,5 @@
         border-radius: 10px;
         min-height: 600px;
         overflow: hidden;
-
-        .left {
-            flex: 1;
-            background: 
-                linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)), 
-                url("https://images.unsplash.com/photo-1508904635850-d986b19765d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"), 
-                no-repeat center center;
-            background-size: cover;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 30px;
-            color: white;
-            
-
-            h1 {
-                font-size: 100px;
-                line-height: 100px;
-                font-weight: bold;
-                color: yellowgreen;
-            }
-
-            p {}
-            
-            span {
-                font-size: 14px;
-                color: lightgrey;
-            }
-            
-            button {
-                width: 50%;
-                padding: 10px;
-                border: none;
-                background-color: white;
-                color : rebeccapurple;
-                font-weight: bold;
-                border-radius: 7px;
-                cursor: pointer;
-                &:hover {
-                    background-color: rebeccapurple;
-                    color: white;
-                }
-            }
-        }
-
-        .right {
-            flex: 1;
-            padding: 50px;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            gap: 50px;
-
-            h1 {
-                color: #555;
-            }
-            
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 30px;
-
-                input {
-                    border: none;
-                    border-bottom: 1px solid lightgray;
-                    padding: 20px 10px;
-                }
-
-                .gender {
-                    padding: 0;
-                    margin: 0;
-                    display: flex;
-                    padding: 20px 10px;
-                }
-                
-
-                button {
-                    width: 50%;
-                    padding: 10px;
-                    border: none;
-                    background-color: #938eef;
-                    color: white;
-                    font-weight: bold;
-                    border-radius: 7px;
-                    cursor: pointer;
-                    &:hover {
-                        background-color: #7d7ae3;
-                    }
-                }
-            }
-
-        }
     }
 }

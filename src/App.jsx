@@ -1,6 +1,6 @@
 import { light } from "@mui/material/styles/createPalette";
 import LeftBar from "./components/leftBar/LeftBar";
-import NavBar from "./components/navbar/Navbar";
+import NavBar from "./components/navbar/NavBar";
 import RightBar from "./components/rightBar/RightBar";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/login";
@@ -15,9 +15,10 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const currentUser = true;
+  const { currentUser } = useContext(AuthContext);
 
   const { darkMode } = useContext(DarkModeContext);
 

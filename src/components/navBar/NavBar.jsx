@@ -11,9 +11,11 @@ import Logo from "../../img/Logo.png";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const NavBar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="NavBar">
@@ -23,9 +25,9 @@ const NavBar = () => {
         </Link>
         <HomeOutlinedIcon />
         {!darkMode ? (
-          <DarkModeOutlinedIcon onClick={toggle} />
+          <DarkModeOutlinedIcon className="NavButton_light" onClick={toggle} />
         ) : (
-          <WbSunnyOutlinedIcon onClick={toggle} />
+          <WbSunnyOutlinedIcon className="NavButton_dark" onClick={toggle} />
         )}
         <GridViewOutlinedIcon />
         <div className="search">
@@ -38,11 +40,8 @@ const NavBar = () => {
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
         <div className="user">
-          <img
-            src="https://images.unsplash.com/photo-1658233427329-9d72b824e144?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
-            alt="Avatar"
-          />
-          <span>Optimus Prime</span>
+          <img src={currentUser.profilePicture} alt="Avatar" />
+          <span>{currentUser.name}</span>
         </div>
       </div>
     </div>

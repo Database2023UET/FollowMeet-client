@@ -4,20 +4,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     .card {
         width: 55%;
         display: flex;
         background-color: white;
         border-radius: 10px;
+        height: 60vh;
         min-height: 600px;
         overflow: hidden;
 
         .left {
             flex: 1;
-            background: 
-                linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)), 
-                url("https://images.unsplash.com/photo-1508904635850-d986b19765d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"), 
+            background:
+                linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
+                url("https://images.unsplash.com/photo-1508904635850-d986b19765d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"),
                 no-repeat center center;
             background-size: cover;
             padding: 50px;
@@ -26,7 +27,6 @@
             justify-content: center;
             gap: 30px;
             color: white;
-            
 
             h1 {
                 font-size: 100px;
@@ -35,20 +35,23 @@
                 color: yellowgreen;
             }
 
-            p {}
-            
+            p {
+            }
+
             span {
                 font-size: 14px;
                 color: lightgrey;
             }
-            
+
             button {
                 width: 50%;
+                height: 3rem;
                 padding: 10px;
                 border: none;
                 background-color: white;
-                color : rebeccapurple;
+                color: rebeccapurple;
                 font-weight: bold;
+                font-size: 1.2rem;
                 border-radius: 7px;
                 cursor: pointer;
                 &:hover {
@@ -69,7 +72,7 @@
             h1 {
                 color: #555;
             }
-            
+
             form {
                 display: flex;
                 flex-direction: column;
@@ -83,11 +86,13 @@
 
                 button {
                     width: 50%;
+                    height: 3rem;
                     padding: 10px;
                     border: none;
                     background-color: #938eef;
                     color: white;
                     font-weight: bold;
+                    font-size: 1.2rem;
                     border-radius: 7px;
                     cursor: pointer;
                     &:hover {
@@ -95,7 +100,6 @@
                     }
                 }
             }
-
         }
     }
 }
