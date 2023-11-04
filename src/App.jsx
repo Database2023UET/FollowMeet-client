@@ -23,17 +23,25 @@ function App() {
   const { darkMode } = useContext(DarkModeContext);
 
   const Layout = () => {
+    document.body.className = `theme-${darkMode ? "dark" : "light"}`;
+
+    document.body.style.backgroundColor = darkMode ? "#333" : "#f6f3f3";
+
     return (
-      <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <div>
-          <NavBar />
-          <div style={{ display: "flex" }}>
-            <LeftBar />
-            <div style={{ flex: 11 }}>
-              <Outlet />
-            </div>
-            <RightBar />
+      <div>
+        <NavBar />
+        <div
+          style={{
+            display: "flex",
+            paddingTop: "4.748rem",
+            overflow: "hidden",
+          }}
+        >
+          <LeftBar />
+          <div style={{ flex: 10 }}>
+            <Outlet />
           </div>
+          <RightBar />
         </div>
       </div>
     );

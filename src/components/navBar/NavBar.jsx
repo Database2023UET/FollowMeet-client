@@ -41,7 +41,7 @@ const NavBar = () => {
         <NotificationsOutlinedIcon />
         <div className="user">
           <img src={currentUser.profilePicture} alt="Avatar" />
-          <span>{currentUser.name}</span>
+          <span>{currentUser.fullName}</span>
         </div>
       </div>
     </div>

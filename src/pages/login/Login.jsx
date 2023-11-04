@@ -1,14 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+
   const { login } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    login();
+  const [Err, setErr] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      await login(inputs);
+      navigate("/");
+    } catch (err) {
+      setErr(err.response.data);
+    }
   };
+  console.log(inputs);
 
   return (
     <div className="login">

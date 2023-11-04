@@ -1,8 +1,8 @@
-@import "../../style.scss";
+@import "../../themes.scss";
 
 .RightBar {
     @include themify($themes) {
-        flex: 4;
+        flex: 5;
         position: sticky;
         top: 70px;
         height: calc(100vh - 70px);
@@ -39,12 +39,17 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    margin: 20px 0px;
+                    margin: 20px 0px 10px 0px;
+
+                    .status {
+                        font-size: smaller;
+                    }
 
                     .userInfo {
                         display: flex;
                         align-items: center;
                         gap: 10px;
+                        margin-right: 0.4rem;
 
                         img {
                             width: 40px;
@@ -58,6 +63,10 @@
                             height: 12px;
                             border-radius: 50%;
                             background-color: lime;
+                        }
+
+                        p {
+                            width: 10rem;
                         }
                     }
 
