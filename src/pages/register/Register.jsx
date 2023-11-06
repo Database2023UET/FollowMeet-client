@@ -21,7 +21,6 @@ const Register = () => {
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
   };
-  console.log(inputs);
 
   const [Err, setErr] = useState(false);
 
