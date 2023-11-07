@@ -1,11 +1,11 @@
 import { light } from "@mui/material/styles/createPalette";
-import LeftBar from "./components/leftBar/LeftBar";
-import NavBar from "./components/navbar/NavBar";
-import RightBar from "./components/rightBar/RightBar";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";  
-import Profile from "./pages/profile/Profile";
-import Register from "./pages/register/Register";
+import LeftBar from "./components/leftBar/LeftBar.jsx";
+import NavBar from "./components/navbar/NavBar.jsx";
+import RightBar from "./components/rightBar/RightBar.jsx";
+import Home from "./pages/home/Home.jsx";
+import Login from "./pages/login/Login.jsx";  
+import Profile from "./pages/profile/Profile.jsx";
+import Register from "./pages/register/Register.jsx";
 import "./style.scss";
 import {
   createBrowserRouter,
@@ -14,8 +14,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { DarkModeContext } from "./context/darkModeContext";
-import { AuthContext } from "./context/AuthContext";
+import { DarkModeContext } from "./context/darkModeContext.jsx";
+import { AuthContext } from "./context/AuthContext.jsx";
 
 function App() {
   const { currentUser } = useContext(AuthContext);

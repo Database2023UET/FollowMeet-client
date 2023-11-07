@@ -1,4 +1,4 @@
-import { Posts } from "../../components/posts/posts";
+import { Posts } from "../../components/posts/posts.jsx";
 import "./Home.scss";
 
 const Home = () => {
