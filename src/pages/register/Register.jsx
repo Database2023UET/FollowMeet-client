@@ -2,7 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Register.scss";
 import axios from "axios";
-import {API_ENDPOINT} from "../../../secret.json";
+import { API_ENDPOINT } from "../../../secret.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -23,8 +25,6 @@ const Register = () => {
     }
   };
 
-  const [Err, setErr] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -33,17 +33,19 @@ const Register = () => {
     try {
       const res = await axios.post(API_ENDPOINT + "/register", inputs);
       if (res.status === 200) {
-        alert("Register Successfully");
+        alert("Registered Successfully");
         navigate("/login");
       } else {
         alert(res.data);
         navigate("/register");
       }
-    } catch(err) {
+    } catch (err) {
       alert(err.response.data);
       navigate("/register");
     }
   };
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="login">
@@ -63,12 +65,19 @@ const Register = () => {
               name="email"
               onChange={handleChange}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
+            <div className="password">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                onChange={handleChange}
+              />
+              <FontAwesomeIcon
+                className="showPassword"
+                icon={showPassword ? faEye : faEyeSlash}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </div>
             <input
               type="text"
               placeholder="Name"

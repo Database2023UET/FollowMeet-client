@@ -77,11 +77,37 @@
                 display: flex;
                 flex-direction: column;
                 gap: 30px;
+                overflow: hidden;
 
                 input {
                     border: none;
                     border-bottom: 1px solid lightgray;
                     padding: 20px 10px;
+                }
+
+                ::-ms-reveal {
+                    display: none;
+                }
+
+                :focus {
+                    outline: none;
+                }
+
+                .password {
+                    display: flex;
+                    flex-direction: row;
+                    border-bottom: 1px solid lightgray;
+                    align-items: center;
+
+                    input {
+                        width: 100%;
+                        border: none;
+                    }
+
+                    .showPassword {
+                        display: block;
+                        cursor: pointer;
+                    }
                 }
 
                 button {

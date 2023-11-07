@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { useContext, useState } from "react";
-import axios from "axios";
-import { API_ENDPOINT } from "../../../secret.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -13,8 +13,6 @@ const Login = () => {
 
   const { login } = useContext(AuthContext);
 
-  const [Err, setErr] = useState(false);
-
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -22,8 +20,7 @@ const Login = () => {
     try {
       await login(inputs);
       navigate("/");
-    } catch(err) {
-      setErr(true);
+    } catch (err) {
       navigate("/login");
     }
   };
@@ -31,6 +28,8 @@ const Login = () => {
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="login">
@@ -52,12 +51,19 @@ const Login = () => {
               name="username"
               onChange={handleChange}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
+            <div className="password">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                onChange={handleChange}
+              />
+              <FontAwesomeIcon
+                className="showPassword"
+                icon={showPassword ? faEye : faEyeSlash}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </div>
             <button onClick={handleLogin}>Login</button>
           </form>
         </div>
