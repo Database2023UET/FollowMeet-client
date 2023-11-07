@@ -1,6 +1,6 @@
 import { light } from "@mui/material/styles/createPalette";
 import LeftBar from "./components/leftBar/LeftBar.jsx";
-import NavBar from "./components/navbar/NavBar.jsx";
+import NavBar from "./components/navBar/NavBar.jsx";
 import RightBar from "./components/rightBar/RightBar.jsx";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";  
