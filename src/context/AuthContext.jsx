@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import {API_ENDPOINT} from "../../secret.json";
 
 export const AuthContext = createContext();
 
@@ -9,11 +10,14 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    const res = axios.post("http://localhost:8000/server/auth/login", inputs, {
-      withCredentials: true,
-    });
-
-    setCurrentUser(res.data);
+    const res = await axios.post(`${API_ENDPOINT}/login`, inputs);
+    if (res.status === 200) {
+      setCurrentUser(inputs);
+      alert("Login successfully");
+    } else {
+      alert("Wrong username or password");
+      throw new Error("Wrong username or password");
+    }  
   };
 
   useEffect(() => {

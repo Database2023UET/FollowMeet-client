@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState } from "react";
+import axios from "axios";
+import { API_ENDPOINT } from "../../../secret.json";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -15,12 +17,14 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       await login(inputs);
       navigate("/");
-    } catch (err) {
-      setErr(err.response.data);
+    } catch(err) {
+      setErr(true);
+      navigate("/login");
     }
   };
 

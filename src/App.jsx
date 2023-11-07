@@ -3,7 +3,7 @@ import LeftBar from "./components/leftBar/LeftBar";
 import NavBar from "./components/navbar/NavBar";
 import RightBar from "./components/rightBar/RightBar";
 import Home from "./pages/home/Home";
-import Login from "./pages/login/login";
+import Login from "./pages/login/Login";  
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import "./style.scss";
@@ -13,7 +13,7 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 
