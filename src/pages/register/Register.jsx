@@ -30,12 +30,18 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post(API_ENDPOINT + "/register", inputs);
-    if (res.data === "Register successfully") {
-      alert("Register Successfully");
-      navigate("/login");
-    } else {
-      alert("Register Failed");
+    try {
+      const res = await axios.post(API_ENDPOINT + "/register", inputs);
+      if (res.status === 200) {
+        alert("Register Successfully");
+        navigate("/login");
+      } else {
+        alert(res.data);
+        navigate("/register");
+      }
+    } catch(err) {
+      alert(err.response.data);
+      navigate("/register");
     }
   };
 
