@@ -5,8 +5,6 @@ import { API_ENDPOINT } from "../../secret.json";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  localStorage.setItem("user", JSON.stringify(false));
-
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || false
   );
@@ -17,8 +15,11 @@ export const AuthContextProvider = ({ children }) => {
         username: "admin",
         password: "admin",
       };
+
       if (inputs.username === pseudoUser.username) {
         if (inputs.password === pseudoUser.password) {
+          inputs.fullName = "Admin";
+          inputs.profilePicture = "https://i.imgur.com/6VBx3io.png";
           setCurrentUser(inputs);
           alert("Login successfully");
           return;
@@ -37,6 +38,11 @@ export const AuthContextProvider = ({ children }) => {
       alert("Wrong username or password");
       throw new Error("Wrong username or password");
     }
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {

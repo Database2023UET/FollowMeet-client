@@ -3,7 +3,7 @@ import LeftBar from "./components/leftBar/LeftBar.jsx";
 import NavBar from "./components/navBar/NavBar.jsx";
 import RightBar from "./components/rightBar/RightBar.jsx";
 import Home from "./pages/home/Home.jsx";
-import Login from "./pages/login/Login.jsx";  
+import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import Register from "./pages/register/Register.jsx";
 import "./style.scss";
@@ -15,7 +15,7 @@ import {
 } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { DarkModeContext } from "./context/darkModeContext.jsx";
-import { AuthContext } from "./context/AuthContext.jsx";
+import { AuthContext } from "./context/authContext.jsx";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
