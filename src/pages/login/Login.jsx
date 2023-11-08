@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext } from "../../context/authContext.jsx";
 import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
