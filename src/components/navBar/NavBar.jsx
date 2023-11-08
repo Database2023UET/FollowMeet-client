@@ -8,10 +8,10 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Logo from "../../img/Logo.png";
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext.jsx";
+import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import "./navBar.scss";
-import { AuthContext } from "../../context/authContext.jsx";
+import { AuthContext } from "../../context/authContext";
 
 const NavBar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./register.scss";
 import axios from "axios";
-import { API_ENDPOINT } from "../../../secret.json";
+import { API_ENDPOINT } from "../../../secret";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 

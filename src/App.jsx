@@ -1,11 +1,11 @@
 import { light } from "@mui/material/styles/createPalette";
-import LeftBar from "./components/leftBar/leftBar.jsx";
-import NavBar from "./components/navBar/navBar.jsx";
-import RightBar from "./components/rightBar/rightBar.jsx";
-import Home from "./pages/home/home.jsx";
-import Login from "./pages/login/login.jsx";
-import Profile from "./pages/profile/profile.jsx";
-import Register from "./pages/register/register.jsx";
+import LeftBar from "./components/leftBar/leftBar";
+import NavBar from "./components/navBar/navBar";
+import RightBar from "./components/rightBar/rightBar";
+import Home from "./pages/home/home";
+import Login from "./pages/login/login";
+import Profile from "./pages/profile/profile";
+import Register from "./pages/register/register";
 import "./style.scss";
 import {
   createBrowserRouter,
