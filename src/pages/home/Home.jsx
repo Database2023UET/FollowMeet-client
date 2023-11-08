@@ -1,5 +1,5 @@
-import { Posts } from "../../components/posts/posts.jsx";
-import "./Home.scss";
+import { Posts } from "../../components/posts/posts";
+import "./home.scss";
 
 const Home = () => {
   return (

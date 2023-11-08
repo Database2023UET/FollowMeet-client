@@ -1,4 +1,4 @@
-import "../../components/posts/Posts.scss";
+import "../../components/posts/posts.scss";
 import { Post } from "../post/post";
 
 export const Posts = () => {

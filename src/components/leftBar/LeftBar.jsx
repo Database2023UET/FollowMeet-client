@@ -1,4 +1,3 @@
-import "./LeftBar.scss";
 import Friends from "../../img/1.png";
 import Groups from "../../img/2.png";
 import Market from "../../img/3.png";
@@ -13,7 +12,8 @@ import Tutorials from "../../img/11.png";
 import Courses from "../../img/12.png";
 import Fund from "../../img/13.png";
 import { useContext } from "react";
-import { AuthContext } from "../../context/authContext.jsx";
+import "./leftBar.scss";
+import { AuthContext } from "../../context/authContext";
 
 const LeftBar = () => {
   const { currentUser } = useContext(AuthContext);

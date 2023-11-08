@@ -1,4 +1,3 @@
-import "./NavBar.scss";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
@@ -11,7 +10,8 @@ import Logo from "../../img/Logo.png";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext.jsx";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import "./navBar.scss";
+import { AuthContext } from "../../context/authContext.jsx";
 
 const NavBar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);

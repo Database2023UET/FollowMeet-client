@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
+import "./comments.scss";
 
 const Comments = () => {
   const { currentUser } = useContext(AuthContext);

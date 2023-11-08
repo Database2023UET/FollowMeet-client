@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./Register.scss";
+import "./register.scss";
 import axios from "axios";
 import { API_ENDPOINT } from "../../../secret.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
