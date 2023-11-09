@@ -20,6 +20,7 @@ export const AuthContextProvider = ({ children }) => {
         if (inputs.password === pseudoUser.password) {
           inputs.fullName = "Admin";
           inputs.profilePicture = "https://i.imgur.com/6VBx3io.png";
+          inputs.id = 1;
           setCurrentUser(inputs);
           alert("Login successfully");
           return;
