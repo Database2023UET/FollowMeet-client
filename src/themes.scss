@@ -4,14 +4,16 @@ $themes: (
         bg: #fff,
         bgSoft: #f6f3f3,
         textColorSoft: #555,
-        border: lightgray
+        border: lightgray,
+        highlight: darkcyan
     ),
     dark: (
         textColor: whitesmoke,
         bg: #222,
         bgSoft: #333,
         textColorSoft: lightgray,
-        border: #444
+        border: #444,
+        highlight: darkred
     )
 );
 

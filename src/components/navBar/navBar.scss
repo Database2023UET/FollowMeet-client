@@ -25,6 +25,7 @@
                 color: darkblue;
                 width: 50px;
                 height: 50px;
+                cursor: pointer;
             }
 
             span {
@@ -50,17 +51,10 @@
                 }
             }
 
-            .NavButton_dark {
+            .NavButton {
                 &:hover {
                     cursor: pointer;
-                    color: darkred;
-                }
-            }
-
-            .NavButton_light {
-                &:hover {
-                    cursor: pointer;
-                    color: darkcyan;
+                    color: themed(highlight);
                 }
             }
         }

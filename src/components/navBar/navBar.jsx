@@ -7,7 +7,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Logo from "../../img/Logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import "./navBar.scss";
@@ -25,28 +25,36 @@ const NavBar = () => {
           src={Logo}
           className="logo"
           alt="Logo"
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/");
+            window.scrollTo(0, 0);
+          }}
         />
         <HomeOutlinedIcon
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/")}
+          onClick={() => {
+            navigate("/");
+            window.scrollTo(0, 0);
+          }}
+          className="NavButton"
         />
         {!darkMode ? (
-          <DarkModeOutlinedIcon className="NavButton_light" onClick={toggle} />
+          <DarkModeOutlinedIcon className="NavButton" onClick={toggle} />
         ) : (
-          <WbSunnyOutlinedIcon className="NavButton_dark" onClick={toggle} />
+          <WbSunnyOutlinedIcon className="NavButton" onClick={toggle} />
         )}
-        <GridViewOutlinedIcon />
+        <GridViewOutlinedIcon className="NavButton" />
         <div className="search">
-          <SearchOutlinedIcon />
+          <SearchOutlinedIcon className="NavButton" />
           <input type="text" placeholder="Search..." />
         </div>
       </div>
       <div className="navRight">
         <PersonOutlinedIcon
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate(`/profile/${currentUser.id}`)}
+          className="NavButton"
+          onClick={() => {
+            navigate(`/profile/${currentUser.id}`);
+            window.scrollTo(0, 0);
+          }}
         />
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
@@ -55,7 +63,10 @@ const NavBar = () => {
             src={currentUser.profilePicture}
             alt="Avatar"
             style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/profile/${currentUser.id}`)}
+            onClick={() => {
+              navigate(`/profile/${currentUser.id}`);
+              window.scrollTo(0, 0);
+            }}
           />
           <span>{currentUser.fullName}</span>
         </div>

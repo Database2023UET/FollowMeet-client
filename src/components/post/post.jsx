@@ -3,7 +3,7 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Comments from "../comments/comments";
 import { useContext, useState } from "react";
 import "./Post.scss";
@@ -21,19 +21,36 @@ export const Post = ({ post }) => {
     //request to like post
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="post">
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.profilePicture} alt="" />
+            <img
+              src={post.profilePicture}
+              alt=""
+              onClick={() => {
+                navigate(`/profile/${post.id}`);
+                window.scrollTo(0, 0);
+              }}
+              style={{ cursor: "pointer" }}
+            />
             <div className="details">
-              <Link
-                to={`/profile/${post.userId}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+              <div
+                onClick={() => {
+                  navigate(`/profile/${post.id}`);
+                  window.scrollTo(0, 0);
+                }}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  cursor: "pointer",
+                }}
               >
                 <span className="name">{post.fullName}</span>
-              </Link>
+              </div>
               <span className="date">1 min ago</span>
             </div>
           </div>

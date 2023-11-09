@@ -38,9 +38,7 @@ const Login = () => {
           <h1>Follow Meet</h1>
           <p>Connect with friends and the world around you on Follow Meet.</p>
           <span>Don't have an account?</span>
-          <Link to="/register">
-            <button>Register</button>
-          </Link>
+          <button onClick={() => navigate("/register")}>Register</button>
         </div>
         <div className="right">
           <h1>Login</h1>

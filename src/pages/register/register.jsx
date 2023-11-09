@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./register.scss";
 import axios from "axios";
@@ -115,9 +115,7 @@ const Register = () => {
           <h1>Follow Meet</h1>
           <p>Connect with friends and the world around you on Follow Meet.</p>
           <span>Already have an account?</span>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
+          <button onClick={() => navigate("/login")}>Login</button>
         </div>
       </div>
     </div>

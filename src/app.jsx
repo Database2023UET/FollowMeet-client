@@ -34,7 +34,6 @@ const App = () => {
           style={{
             display: "flex",
             paddingTop: "4.748rem",
-            overflow: "hidden",
           }}
         >
           <LeftBar />
