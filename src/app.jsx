@@ -38,9 +38,7 @@ const App = () => {
           }}
         >
           <LeftBar />
-          <div style={{ flex: 10 }}>
-            <Outlet />
-          </div>
+          <Outlet />
           <RightBar />
         </div>
       </div>

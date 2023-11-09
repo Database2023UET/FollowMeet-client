@@ -2,13 +2,16 @@
 
 .RightBar {
     @include themify($themes) {
-        flex: 5;
-        position: sticky;
-        top: 70px;
-        height: calc(100vh - 70px);
+        position: fixed;
+        top: 7vh;
+        right: 0;
+        height: 90vh;
+        width: 25vw;
         overflow: scroll;
         background-color: themed(bgSoft);
         color: themed(textColorSoft);
+        padding-top: 20px;
+        padding-right: 10px;
 
         &::-webkit-scrollbar {
             display: none;
