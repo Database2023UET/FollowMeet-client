@@ -16,8 +16,10 @@ const Profile = () => {
     //Temporary
     id: id,
     fullName: "Nguyen Van A",
-    profilePicture: "https://picsum.photos/200",
-    coverPicture: "https://picsum.photos/200",
+    profilePicture:
+      "https://fastly.picsum.photos/id/453/500/500.jpg?hmac=YXiO3MsxF_O5rVKhdSc5ySezycPBJO_AylS8hXbKmYo",
+    coverPicture:
+      "https://fastly.picsum.photos/id/273/1000/1000.jpg?hmac=OsetjarMnauEuUCTo6xkBfhkhgZOxrnVyrdJWkQuXiE",
     followed: false,
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
   });

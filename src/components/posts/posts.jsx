@@ -20,7 +20,8 @@ const Posts = ({ posts }) => {
         "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
       rawText:
         "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
-      imgURL: "https://picsum.photos/2003",
+      imgURL:
+        "https://fastly.picsum.photos/id/703/1000/1000.jpg?hmac=cRmL65OyDF7lg_MSgYgUc2ZNYJ3avrVNgRHVmT3TG4M",
     },
   ];
   return (
