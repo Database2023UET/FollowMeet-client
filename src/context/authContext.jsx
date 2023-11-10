@@ -14,20 +14,22 @@ export const AuthContextProvider = ({ children }) => {
       const pseudoUser = {
         username: "admin",
         password: "admin",
+        fullName: "Admin",
+        profilePicture: "https://i.imgur.com/6VBx3io.png",
+        id: 1,
       };
 
       if (inputs.username === pseudoUser.username) {
         if (inputs.password === pseudoUser.password) {
-          inputs.fullName = "Admin";
-          inputs.profilePicture = "https://i.imgur.com/6VBx3io.png";
-          inputs.id = 1;
-          setCurrentUser(inputs);
+          setCurrentUser(pseudoUser);
           alert("Login successfully");
           return;
         }
       }
 
       const res = await axios.post(`${API_ENDPOINT}/login`, inputs);
+      //add lastLogin later
+      console.log(res);
       if (res.status === 200) {
         setCurrentUser(inputs);
         alert("Login successfully");
@@ -44,6 +46,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem("user");
+    //request logout (lastLogout)
   };
 
   useEffect(() => {
@@ -52,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <>
-      <AuthContext.Provider value={{ currentUser, login }}>
+      <AuthContext.Provider value={{ currentUser, login, logout }}>
         {children}
       </AuthContext.Provider>
     </>

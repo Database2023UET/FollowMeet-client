@@ -20,6 +20,9 @@ const Login = () => {
     try {
       await login(inputs);
       navigate("/");
+      if (inputs.username === "admin") {
+        window.location.reload();
+      }
     } catch (err) {
       navigate("/login");
     }

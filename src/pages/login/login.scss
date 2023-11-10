@@ -1,21 +1,22 @@
+@import "../../themes.scss";
+
 .login {
     height: 100vh;
     background-color: rgb(193, 190, 255);
     display: flex;
-    align-items: center;
-    justify-content: center;
 
     .card {
-        width: 55%;
+        width: 60vw;
+        height: 80vh;
         display: flex;
         background-color: white;
         border-radius: 10px;
-        height: 60%;
-        min-height: 600px;
+        margin-left: 20vw;
+        margin-top: 10vh;
         overflow: hidden;
 
         .left {
-            flex: 1;
+            flex: 5;
             background:
                 linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
                 url("https://images.unsplash.com/photo-1508904635850-d986b19765d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"),
@@ -27,15 +28,13 @@
             justify-content: center;
             gap: 30px;
             color: white;
+            min-width: 20vw;
 
             h1 {
-                font-size: 100px;
-                line-height: 100px;
+                font-size: 6vw;
+                line-height: 10vh;
                 font-weight: bold;
                 color: yellowgreen;
-            }
-
-            p {
             }
 
             span {
@@ -47,6 +46,7 @@
                 width: 50%;
                 height: 3rem;
                 min-height: 2rem;
+                min-width: 8rem;
                 padding: 10px;
                 border: none;
                 background-color: white;
@@ -63,12 +63,15 @@
         }
 
         .right {
-            flex: 1;
+            flex: 5;
             padding: 50px;
             display: flex;
             justify-content: center;
             flex-direction: column;
-            gap: 50px;
+            gap: 1.5rem;
+            @include mediumScreen {
+                padding: 20px;
+            }
 
             h1 {
                 color: #555;
@@ -112,6 +115,7 @@
 
                 button {
                     width: 50%;
+                    min-width: 8rem;
                     height: 3rem;
                     padding: 10px;
                     border: none;

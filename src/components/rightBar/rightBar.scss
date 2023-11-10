@@ -13,6 +13,10 @@
         padding-top: 20px;
         padding-right: 10px;
 
+        @include tablet {
+            display: none;
+        }
+
         &::-webkit-scrollbar {
             display: none;
         }
@@ -36,6 +40,12 @@
                 span {
                     color: themed(textColorSoft);
                     font-weight: 600;
+                }
+
+                .status_info {
+                    color: rgba(211, 211, 211, 0.512);
+                    font-size: small;
+                    font-weight: 500;
                 }
 
                 .user {
@@ -79,6 +89,9 @@
                         gap: 0.7rem;
 
                         button {
+                            @include mediumScreen {
+                                display: none;
+                            }
                             border: none;
                             border-radius: 0.5rem;
                             padding: 0.5rem;

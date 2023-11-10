@@ -53,7 +53,7 @@ const RightBar = () => {
               />
               <span>Megatroll</span>
             </div>
-            <span className="status">8 min ago</span>
+            <span className="status_info">8 min ago</span>
           </div>
         </div>
 
@@ -69,7 +69,7 @@ const RightBar = () => {
                 <span>Megatron</span> liked your post
               </p>
             </div>
-            <span className="status">3 min ago</span>
+            <span className="status_info">3 min ago</span>
           </div>
           <div className="user">
             <div className="userInfo">
@@ -81,7 +81,7 @@ const RightBar = () => {
                 <span>Megatron</span> commented on your post
               </p>
             </div>
-            <span className="status">1 min ago</span>
+            <span className="status_info">1 min ago</span>
           </div>
         </div>
       </div>

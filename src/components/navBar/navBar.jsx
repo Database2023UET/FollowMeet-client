@@ -6,6 +6,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import Logo from "../../img/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
@@ -15,9 +16,14 @@ import { AuthContext } from "../../context/authContext";
 
 const NavBar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   const navigate = useNavigate();
+
   return (
     <div className="NavBar">
       <div className="navLeft">
@@ -28,12 +34,15 @@ const NavBar = () => {
           onClick={() => {
             navigate("/");
             window.scrollTo(0, 0);
+            window.location.reload();
           }}
         />
+        {console.log(currentUser)}
         <HomeOutlinedIcon
           onClick={() => {
             navigate("/");
             window.scrollTo(0, 0);
+            window.location.reload();
           }}
           className="NavButton"
         />
@@ -58,18 +67,27 @@ const NavBar = () => {
         />
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
-        <div className="user">
+        <div className="user NavButton">
           <img
             src={currentUser.profilePicture}
             alt="Avatar"
-            style={{ cursor: "pointer" }}
             onClick={() => {
               navigate(`/profile/${currentUser.id}`);
               window.scrollTo(0, 0);
+              window.location.reload();
             }}
           />
-          <span>{currentUser.fullName}</span>
+          <span
+            onClick={() => {
+              navigate(`/profile/${currentUser.id}`);
+              window.scrollTo(0, 0);
+              window.location.reload();
+            }}
+          >
+            {currentUser.fullName}
+          </span>
         </div>
+        <LogoutIcon className="NavButton" onClick={handleLogout} />
       </div>
     </div>
   );

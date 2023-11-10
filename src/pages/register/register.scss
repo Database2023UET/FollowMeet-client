@@ -2,8 +2,6 @@
     height: 100vh;
     background-color: rgb(193, 190, 255);
     display: flex;
-    align-items: center;
-    justify-content: center;
 
     .card {
         width: 50%;
@@ -13,5 +11,7 @@
         border-radius: 10px;
         min-height: 600px;
         overflow: hidden;
+        margin-left: 20vw;
+        margin-top: 10vh;
     }
 }
