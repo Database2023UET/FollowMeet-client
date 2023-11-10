@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { API_ENDPOINT } from "../../secret.json";
 import hash from "object-hash";
+
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
 export const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
+    console.log(API_ENDPOINT);
     try {
       const pseudoUser = {
         username: "admin",
@@ -29,17 +31,19 @@ export const AuthContextProvider = ({ children }) => {
       }
       const tmpInputs = { ...inputs };
       tmpInputs.password = hash(tmpInputs.password);
-      const res = await axios.post(`${API_ENDPOINT}/login`, tmpInputs);
+      const res = await axios.post(`${API_ENDPOINT}/api/auth/login`, tmpInputs);
       //add lastLogin later
       console.log(res);
       if (res.status === 200) {
         setCurrentUser(tmpInputs);
         alert("Login successfully");
       } else {
-        alert("Wrong username or password");
+        // alert("Wrong username or password");
+        console.log(res.data);
         throw new Error("Wrong username or password");
       }
     } catch (err) {
+      console.log(err);
       alert("Wrong username or password");
       throw new Error("Wrong username or password");
     }

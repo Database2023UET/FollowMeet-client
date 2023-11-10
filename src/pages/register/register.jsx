@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./register.scss";
 import axios from "axios";
-import { API_ENDPOINT } from "../../../secret";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import hash from "object-hash";
+
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT; 
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -34,7 +35,7 @@ const Register = () => {
       const tmpInputs = { ...inputs };
       tmpInputs.password = hash(tmpInputs.password);
       console.log(tmpInputs);
-      const res = await axios.post(API_ENDPOINT + "/register", inputs);
+      const res = await axios.post(API_ENDPOINT + "/api/auth/register", tmpInputs);
       if (res.status === 200) {
         alert("Registered Successfully");
         navigate("/login");
