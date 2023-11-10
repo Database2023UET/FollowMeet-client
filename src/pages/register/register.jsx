@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../secret";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import hash from "object-hash";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -30,6 +31,9 @@ const Register = () => {
     e.preventDefault();
 
     try {
+      const tmpInputs = { ...inputs };
+      tmpInputs.password = hash(tmpInputs.password);
+      console.log(tmpInputs);
       const res = await axios.post(API_ENDPOINT + "/register", inputs);
       if (res.status === 200) {
         alert("Registered Successfully");

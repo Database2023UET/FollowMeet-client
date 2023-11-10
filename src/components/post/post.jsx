@@ -61,9 +61,9 @@ export const Post = ({ post }) => {
           <img src={post.imgURL} alt="" />
         </div>
         <div className="info">
-          <div className="item" onClick={handleLike}>
+          <div className="item heart" onClick={handleLike}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            <span>12 Likes</span>
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { API_ENDPOINT } from "../../secret.json";
+import hash from "object-hash";
 
 export const AuthContext = createContext();
 
@@ -26,12 +27,13 @@ export const AuthContextProvider = ({ children }) => {
           return;
         }
       }
-
-      const res = await axios.post(`${API_ENDPOINT}/login`, inputs);
+      const tmpInputs = { ...inputs };
+      tmpInputs.password = hash(tmpInputs.password);
+      const res = await axios.post(`${API_ENDPOINT}/login`, tmpInputs);
       //add lastLogin later
       console.log(res);
       if (res.status === 200) {
-        setCurrentUser(inputs);
+        setCurrentUser(tmpInputs);
         alert("Login successfully");
       } else {
         alert("Wrong username or password");
