@@ -6,7 +6,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useNavigate } from "react-router-dom";
 import Comments from "../comments/comments";
 import { useContext, useState } from "react";
-import "./Post.scss";
+import "./post.scss";
 import { AuthContext } from "../../context/authContext";
 
 export const Post = ({ post }) => {
