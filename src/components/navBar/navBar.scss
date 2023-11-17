@@ -42,14 +42,14 @@
                 border-radius: 7px;
                 padding: 5px;
 
-                @include mediumScreen {
+                @include tablet {
                     display: none;
                 }
 
                 input {
                     border: none;
                     outline: none;
-                    width: 30rem;
+                    width: 25rem;
                     background-color: transparent;
                     color: themed(textColor);
                 }

@@ -1,0 +1,28 @@
+.popoutAlert {
+    position: fixed;
+    //middle of the screen
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+
+    .background {
+        //blurry background for whole page
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .alert {
+    }
+}
