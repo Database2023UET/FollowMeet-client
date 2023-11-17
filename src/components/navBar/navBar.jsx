@@ -13,6 +13,7 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import "./navBar.scss";
 import { AuthContext } from "../../context/authContext";
+import PopoutAlert from "../popoutAlert/popoutAlert";
 
 const NavBar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
@@ -37,7 +38,7 @@ const NavBar = () => {
             window.location.reload();
           }}
         />
-        {console.log(currentUser)}
+        {/* {console.log(currentUser)} */}
         <HomeOutlinedIcon
           onClick={() => {
             navigate("/");
@@ -51,7 +52,7 @@ const NavBar = () => {
         ) : (
           <WbSunnyOutlinedIcon className="NavButton" onClick={toggle} />
         )}
-        <GridViewOutlinedIcon className="NavButton" />
+        {/* <GridViewOutlinedIcon className="NavButton" /> */}
         <div className="search">
           <SearchOutlinedIcon className="NavButton" />
           <input type="text" placeholder="Search..." />

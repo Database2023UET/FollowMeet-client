@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import hash from "object-hash";
+import bcrypt from "bcryptjs-react";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    console.log(API_ENDPOINT);
+    // console.log(API_ENDPOINT);
     try {
       const pseudoUser = {
         username: "admin",
@@ -24,26 +24,28 @@ export const AuthContextProvider = ({ children }) => {
 
       if (inputs.username === pseudoUser.username) {
         if (inputs.password === pseudoUser.password) {
+          pseudoUser.password = bcrypt.hashSync(pseudoUser.password);
           setCurrentUser(pseudoUser);
           alert("Login successfully");
           return;
         }
       }
       const tmpInputs = { ...inputs };
-      tmpInputs.password = hash(tmpInputs.password);
+      tmpInputs.password = bcrypt.hashSync(tmpInputs.password);
+      loginWithPassword(tmpInputs);
       const res = await axios.post(`${API_ENDPOINT}/api/auth/login`, tmpInputs);
       //add lastLogin later
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
         setCurrentUser(tmpInputs);
         alert("Login successfully");
       } else {
         // alert("Wrong username or password");
-        console.log(res.data);
+        // console.log(res.data);
         throw new Error("Wrong username or password");
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       alert("Wrong username or password");
       throw new Error("Wrong username or password");
     }

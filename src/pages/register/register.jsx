@@ -4,9 +4,9 @@ import "./register.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import hash from "object-hash";
+import bcrypt from "bcryptjs-react";
 
-const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT; 
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -33,9 +33,12 @@ const Register = () => {
 
     try {
       const tmpInputs = { ...inputs };
-      tmpInputs.password = hash(tmpInputs.password);
-      console.log(tmpInputs);
-      const res = await axios.post(API_ENDPOINT + "/api/auth/register", tmpInputs);
+      tmpInputs.password = bcrypt.hashSync(tmpInputs.password);
+      // console.log(tmpInputs);
+      const res = await axios.post(
+        API_ENDPOINT + "/api/auth/register",
+        tmpInputs
+      );
       if (res.status === 200) {
         alert("Registered Successfully");
         navigate("/login");

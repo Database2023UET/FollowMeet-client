@@ -1,4 +1,4 @@
-import Friends from "../../img/1.png";
+import Followers from "../../img/1.png";
 import Groups from "../../img/2.png";
 import Market from "../../img/3.png";
 import Watch from "../../img/4.png";
@@ -27,8 +27,8 @@ const LeftBar = () => {
             <span>{currentUser.fullName}</span>
           </div>
           <div className="item">
-            <img src={Friends} alt="Follow" />
-            <span>Friends</span>
+            <img src={Followers} alt="Follow" />
+            <span>Followers</span>
           </div>
           <div className="item">
             <img src={Groups} alt="Groups" />

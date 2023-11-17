@@ -3,10 +3,10 @@ import { AuthContext } from "../../context/authContext";
 import "./comments.scss";
 import { useNavigate } from "react-router";
 
-const Comments = ({ posts }) => {
+const Comments = ({ comments }) => {
   const { currentUser } = useContext(AuthContext);
   //Temporary
-  const comments = [
+  comments = [
     {
       id: 1,
       rawText:
