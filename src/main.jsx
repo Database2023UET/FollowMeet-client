@@ -8,11 +8,11 @@ import { AlertContextProvider } from "./context/alertContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <DarkModeContextProvider>
-      <AuthContextProvider>
-        <AlertContextProvider>
+      <AlertContextProvider>
+        <AuthContextProvider>
           <App />
-        </AlertContextProvider>
-      </AuthContextProvider>
+        </AuthContextProvider>
+      </AlertContextProvider>
     </DarkModeContextProvider>
   </React.StrictMode>
 );

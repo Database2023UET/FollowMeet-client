@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./login.scss";
+import { AlertContext } from "../../context/alertContext";
+import { DarkModeContext } from "../../context/darkModeContext";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -12,6 +14,8 @@ const Login = () => {
   });
 
   const { login } = useContext(AuthContext);
+  const { showAlert } = useContext(AlertContext);
+  const { toggle, getTheme } = useContext(DarkModeContext);
 
   const navigate = useNavigate();
 
@@ -19,11 +23,26 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(inputs);
-      navigate("/");
-      if (inputs.username === "admin") {
-        window.location.reload();
-      }
+      const info = {
+        name: "Positive",
+        message: "Login successful",
+        showButton: false,
+      };
+      showAlert(info);
+      //wait for 1 second
+      setTimeout(() => {
+        navigate("/");
+        if (inputs.username === "admin") {
+          window.location.reload();
+        }
+      }, 750);
     } catch (err) {
+      const info = {
+        name: "Negative",
+        message: err.message,
+        showButton: false,
+      };
+      showAlert(info);
       navigate("/login");
     }
   };

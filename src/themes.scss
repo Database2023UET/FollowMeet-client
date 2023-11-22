@@ -4,7 +4,7 @@ $themes: (
         bg: #fff,
         bgSoft: #f6f3f3,
         textColorSoft: #555,
-        border: lightgray,
+        border: rgb(65, 60, 65),
         highlight: #075ce5
     ),
     dark: (
@@ -12,7 +12,7 @@ $themes: (
         bg: #222,
         bgSoft: #333,
         textColorSoft: lightgray,
-        border: #444,
+        border: rgb(126, 118, 118),
         highlight: #609dff
     )
 );
