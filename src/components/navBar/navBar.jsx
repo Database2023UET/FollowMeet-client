@@ -13,14 +13,32 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import "./navBar.scss";
 import { AuthContext } from "../../context/authContext";
-import PopoutAlert from "../popoutAlert/popoutAlert";
+import { AlertContext } from "../../context/alertContext";
 
 const NavBar = () => {
-  const { toggle, darkMode } = useContext(DarkModeContext);
+  const { toggle, darkMode, getTheme } = useContext(DarkModeContext);
   const { currentUser, logout } = useContext(AuthContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const handleLogout = () => {
-    logout();
+    const info = {
+      name: "Logout",
+      message: "Are you sure you want to logout?",
+      showButton: true,
+      confirmText: "Yes",
+      declineText: "No",
+      handleConfirm: () => {
+        setTimeout(() => {
+          logout();
+          navigate("/login");
+          hideAlert();
+        }, 500);
+      },
+      handleDecline: () => {
+        hideAlert();
+      },
+    };
+    showAlert(info);
   };
 
   const navigate = useNavigate();

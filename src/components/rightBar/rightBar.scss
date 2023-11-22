@@ -3,9 +3,9 @@
 .RightBar {
     @include themify($themes) {
         position: fixed;
-        top: 7vh;
+        top: 7svh;
         right: 0;
-        height: 90vh;
+        height: 90svh;
         width: 25vw;
         overflow: scroll;
         background-color: themed(bgSoft);

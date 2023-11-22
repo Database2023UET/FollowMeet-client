@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./register.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import bcrypt from "bcryptjs-react";
+import { AlertContext } from "../../context/alertContext";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -16,6 +17,8 @@ const Register = () => {
     fullName: "",
     gender: 1,
   });
+
+  const { showAlert } = useContext(AlertContext);
 
   const handleChange = (e) => {
     if (e.target.name === "male") {
@@ -40,14 +43,30 @@ const Register = () => {
         tmpInputs
       );
       if (res.status === 200) {
-        alert("Registered Successfully");
-        navigate("/login");
+        const info = {
+          name: "Positive",
+          message: res.data.message,
+          showButton: false,
+        };
+        showAlert(info);
+        setTimeout(() => {
+          navigate("/login");
+        }, 750);
       } else {
-        alert(res.data);
+        const info = {
+          name: "Negative",
+          message: res.data.message,
+          showButton: false,
+        };
+        showAlert(info);
         navigate("/register");
       }
     } catch (err) {
-      alert(err.response.data);
+      const info = {
+        name: "Negative",
+        message: err.message,
+        showButton: false,
+      };
       navigate("/register");
     }
   };

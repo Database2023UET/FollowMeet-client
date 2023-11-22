@@ -1,6 +1,8 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import bcrypt from "bcryptjs-react";
+import { AlertContext } from "./alertContext";
+import { DarkModeContext } from "./darkModeContext";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -26,7 +28,6 @@ export const AuthContextProvider = ({ children }) => {
         if (inputs.password === pseudoUser.password) {
           pseudoUser.password = bcrypt.hashSync(pseudoUser.password);
           setCurrentUser(pseudoUser);
-          alert("Login successfully");
           return;
         }
       }
@@ -38,7 +39,6 @@ export const AuthContextProvider = ({ children }) => {
       // console.log(res);
       if (res.status === 200) {
         setCurrentUser(tmpInputs);
-        alert("Login successfully");
       } else {
         // alert("Wrong username or password");
         // console.log(res.data);
@@ -46,7 +46,6 @@ export const AuthContextProvider = ({ children }) => {
       }
     } catch (err) {
       // console.log(err);
-      alert("Wrong username or password");
       throw new Error("Wrong username or password");
     }
   };
