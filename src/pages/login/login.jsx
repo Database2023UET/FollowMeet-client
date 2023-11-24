@@ -14,7 +14,7 @@ const Login = () => {
   });
 
   const { login } = useContext(AuthContext);
-  const { showAlert } = useContext(AlertContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
   const { toggle, getTheme } = useContext(DarkModeContext);
 
   const navigate = useNavigate();
@@ -43,6 +43,7 @@ const Login = () => {
         showButton: false,
       };
       showAlert(info);
+      setTimeout(() => hideAlert(), 750);
       navigate("/login");
     }
   };
