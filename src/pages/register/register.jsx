@@ -18,7 +18,7 @@ const Register = () => {
     gender: 1,
   });
 
-  const { showAlert } = useContext(AlertContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const handleChange = (e) => {
     if (e.target.name === "male") {
@@ -67,6 +67,7 @@ const Register = () => {
         message: err.message,
         showButton: false,
       };
+      setTimeout(() => hideAlert(), 750);
       navigate("/register");
     }
   };

@@ -1,11 +1,11 @@
-import "./inputPost.scss";
+import "./addPost.scss";
 import Image from "../../img/img.png";
 import Map from "../../img/map.png";
 import Friend from "../../img/friend.png";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
-const InputPost = () => {
+const AddPost = () => {
   const { currentUser } = useContext(AuthContext);
   return (
     <div className="share">
@@ -45,4 +45,4 @@ const InputPost = () => {
   );
 };
 
-export default InputPost;
+export default AddPost;

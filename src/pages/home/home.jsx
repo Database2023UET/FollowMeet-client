@@ -1,11 +1,11 @@
 import Posts from "../../components/posts/posts";
-import InputPost from "../../components/share/inputPost";
+import AddPost from "../../components/addPost/addPost";
 import "./home.scss";
 
 const Home = () => {
   return (
     <div className="home">
-      <InputPost />
+      <AddPost />
       <Posts posts={null} />
     </div>
   );
