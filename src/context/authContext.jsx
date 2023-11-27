@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import bcrypt from "bcryptjs-react";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
