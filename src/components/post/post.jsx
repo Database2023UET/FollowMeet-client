@@ -57,8 +57,8 @@ export const Post = ({ post }) => {
           <MoreHorizIcon />
         </div>
         <div className="content">
-          <p>{post.rawText}</p>
-          <img src={post.imgURL} alt="" />
+          <p>{post.contentText}</p>
+          <img src={post.contentImg} alt="" />
         </div>
         <div className="info">
           <div className="item heart" onClick={handleLike}>

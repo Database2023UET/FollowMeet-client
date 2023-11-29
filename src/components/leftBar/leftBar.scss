@@ -9,6 +9,7 @@
         overflow-y: scroll;
         background-color: themed(bg);
         color: themed(textColor);
+        padding-top: 2svh;
         align-self: flex-start;
 
         &::-webkit-scrollbar {
