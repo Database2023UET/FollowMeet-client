@@ -2,25 +2,119 @@ import "./addPost.scss";
 import Image from "../../img/img.png";
 import Map from "../../img/map.png";
 import Friend from "../../img/friend.png";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/authContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import cloudinary from "../../cloudinary/cloudinary";
+import { AlertContext } from "../../context/alertContext";
 
 const AddPost = () => {
   const { currentUser } = useContext(AuthContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
+  const [file, setFile] = useState(null);
+  const [text, setText] = useState("");
+  const imgInputRef = useRef();
+  const textInputRef = useRef();
+  const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+
+  const handleCancelImage = () => {
+    setFile(null);
+    imgInputRef.current.value = "";
+  };
+
+  const resetAddPost = () => {
+    setFile(null);
+    imgInputRef.current.value = "";
+    setText("");
+    textInputRef.current.value = "";
+  };
+
+  const postToCloudinary = async () => {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", cloudinary.upload_preset);
+      const xhr = new XMLHttpRequest();
+      xhr.open(
+        "POST",
+        `https://api.cloudinary.com/v1_1/${cloudinary.cloud_name}/image/upload`
+      );
+      xhr.onload = () => {
+        const res = JSON.parse(xhr.responseText);
+        resolve(res.secure_url);
+      };
+      xhr.onerror = (err) => {
+        reject(err);
+      };
+      xhr.send(formData);
+    });
+  };
+
+  const handleAddPost = async () => {
+    try {
+      const newPost = {
+        userId: currentUser.id,
+        contentText: text,
+        contentImg: "",
+      };
+      if (file) {
+        const imageUrl = await postToCloudinary();
+        newPost.contentImg = imageUrl;
+      }
+      const res = await axios.post(API_ENDPOINT + "/api/post/addPost", newPost);
+      const info = {
+        name: "Positive",
+        message: res.data,
+        showButton: false,
+      };
+      showAlert(info);
+      setTimeout(() => {
+        hideAlert();
+      }, 750);
+      resetAddPost();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="share">
       <div className="container">
         <div className="top">
-          <img src={currentUser.profilePicture} alt="" />
-          <input
-            type="text"
-            placeholder={`What's on your mind, ${currentUser.username}?`}
-          />
+          <div className="left">
+            <img className="pfpImg" src={currentUser.profilePicture} alt="" />
+            <input
+              type="text"
+              ref={textInputRef}
+              onChange={(e) => setText(e.target.value)}
+              placeholder={`What's on your mind, ${currentUser.username}?`}
+            />
+          </div>
+          <div className="right">
+            {file && (
+              <>
+                <img className="file" src={URL.createObjectURL(file)} />
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  style={{ cursor: "pointer" }}
+                  onClick={handleCancelImage}
+                />
+              </>
+            )}
+          </div>
         </div>
         <hr />
         <div className="bottom">
           <div className="left">
-            <input type="file" id="file" style={{ display: "none" }} />
+            <input
+              type="file"
+              id="file"
+              ref={imgInputRef}
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
             <label htmlFor="file">
               <div className="item">
                 <img src={Image} alt="" />
@@ -37,7 +131,7 @@ const AddPost = () => {
             </div>
           </div>
           <div className="right">
-            <button>Post</button>
+            <button onClick={handleAddPost}>Post</button>
           </div>
         </div>
       </div>

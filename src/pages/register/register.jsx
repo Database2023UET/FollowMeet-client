@@ -36,6 +36,27 @@ const Register = () => {
 
     try {
       const tmpInputs = { ...inputs };
+      if (tmpInputs.password.length < 6) {
+        const info = {
+          name: "Negative",
+          message: "Password must be at least 6 characters",
+          showButton: false,
+        };
+        showAlert(info);
+        setTimeout(() => hideAlert(), 750);
+        return;
+      }
+      if (!/^[a-zA-Z0-9_]+$/.test(tmpInputs.password)) {
+        const info = {
+          name: "Negative",
+          message:
+            "Password must contain only letters, numbers and underscores",
+          showButton: false,
+        };
+        showAlert(info);
+        setTimeout(() => hideAlert(), 750);
+        return;
+      }
       tmpInputs.password = bcrypt.hashSync(tmpInputs.password);
       // console.log(tmpInputs);
       const res = await axios.post(
@@ -45,17 +66,19 @@ const Register = () => {
       if (res.status === 200) {
         const info = {
           name: "Positive",
-          message: res.data.message,
+          message: res.data,
           showButton: false,
         };
+        console.log(res);
         showAlert(info);
         setTimeout(() => {
-          navigate("/login");
+          hideAlert();
         }, 750);
+        navigate("/login");
       } else {
         const info = {
           name: "Negative",
-          message: res.data.message,
+          message: res.data,
           showButton: false,
         };
         showAlert(info);
@@ -64,9 +87,10 @@ const Register = () => {
     } catch (err) {
       const info = {
         name: "Negative",
-        message: err.message,
+        message: err.response.data,
         showButton: false,
       };
+      showAlert(info);
       setTimeout(() => hideAlert(), 750);
       navigate("/register");
     }
