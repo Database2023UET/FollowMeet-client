@@ -32,7 +32,7 @@ export const Post = ({ post }) => {
               src={post.profilePicture}
               alt=""
               onClick={() => {
-                navigate(`/profile/${post.id}`);
+                navigate(`/profile/${post.ownerId}`);
                 window.scrollTo(0, 0);
               }}
               style={{ cursor: "pointer" }}
@@ -40,7 +40,7 @@ export const Post = ({ post }) => {
             <div className="details">
               <div
                 onClick={() => {
-                  navigate(`/profile/${post.id}`);
+                  navigate(`/profile/${post.ownerId}`);
                   window.scrollTo(0, 0);
                 }}
                 style={{
@@ -74,7 +74,7 @@ export const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments comments={null} postId={post.postId} />}
       </div>
     </div>
   );
