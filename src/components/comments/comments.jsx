@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/authContext";
 import "./comments.scss";
 import { useNavigate } from "react-router";
 
-const Comments = ({ comments }) => {
+const Comments = ({ comments, postId }) => {
   const { currentUser } = useContext(AuthContext);
   //Temporary
   comments = [
