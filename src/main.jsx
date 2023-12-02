@@ -7,13 +7,15 @@ import { AlertContextProvider } from "./context/alertContext";
 import { CloudinaryContextProvider } from "./context/cloudinaryContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <DarkModeContextProvider>
-    <AlertContextProvider>
-      <AuthContextProvider>
-        <CloudinaryContextProvider>
-          <App />
-        </CloudinaryContextProvider>
-      </AuthContextProvider>
-    </AlertContextProvider>
-  </DarkModeContextProvider>
+  <React.StrictMode>
+    <DarkModeContextProvider>
+      <AlertContextProvider>
+        <AuthContextProvider>
+          <CloudinaryContextProvider>
+            <App />
+          </CloudinaryContextProvider>
+        </AuthContextProvider>
+      </AlertContextProvider>
+    </DarkModeContextProvider>
+  </React.StrictMode>
 );
