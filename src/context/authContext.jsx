@@ -18,7 +18,7 @@ export const AuthContextProvider = ({ children }) => {
         password: "admin",
         fullName: "Admin",
         profilePicture: "https://i.imgur.com/6VBx3io.png",
-        id: 0,
+        id: 1,
       };
 
       if (inputs.username === pseudoUser.username) {
@@ -32,8 +32,12 @@ export const AuthContextProvider = ({ children }) => {
       //add lastLogin later
       // console.log(res);
       if (res.status === 200) {
-        // setCurrentUser(res.data);
-        setCurrentUser(pseudoUser);
+        const user = await axios.get(
+          `${API_ENDPOINT}/api/user/getUserInfos?userId=${res.data}`
+        );
+        setCurrentUser(user.data);
+        // setCurrentUser(tmpInputs);
+        // setCurrentUser(pseudoUser);
       } else {
         // alert("Wrong username or password");
         // console.log(res.data);

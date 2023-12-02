@@ -16,6 +16,7 @@ import {
 import { useContext, useEffect } from "react";
 import { DarkModeContext } from "./context/darkModeContext.jsx";
 import { AuthContext } from "./context/authContext.jsx";
+import Page404 from "./pages/page404/page404.jsx";
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -39,6 +40,26 @@ const App = () => {
           <LeftBar />
           <Outlet />
           <RightBar />
+        </div>
+      </div>
+    );
+  };
+
+  const Layout404 = () => {
+    document.body.className = `theme-${darkMode ? "dark" : "light"}`;
+
+    document.body.style.backgroundColor = darkMode ? "#333" : "#f6f3f3";
+
+    return (
+      <div>
+        <NavBar />
+        <div
+          style={{
+            display: "flex",
+            paddingTop: "4.748rem",
+          }}
+        >
+          <Outlet />
         </div>
       </div>
     );
@@ -77,6 +98,16 @@ const App = () => {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "*",
+      element: <Layout404 />,
+      children: [
+        {
+          path: "*",
+          element: <Page404 />,
+        },
+      ],
     },
   ]);
 

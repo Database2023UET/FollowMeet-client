@@ -33,10 +33,9 @@ export const Post = ({ post }) => {
   useEffect(() => {
     const fetchPostOwner = async () => {
       try {
-        const res = await axios.get(`${API_ENDPOINT}/api/user/getUserInfos/`, {
-          userId: post.ownerId,
-        });
-        console.log(res);
+        const res = await axios.get(
+          `${API_ENDPOINT}/api/user/getUserInfos?userId=${post.ownerId}`
+        );
         setPostOwner(res.data);
       } catch (err) {
         console.log(err);
