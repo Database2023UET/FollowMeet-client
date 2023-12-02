@@ -63,6 +63,9 @@ const AddPost = () => {
         const imageUrl = await postToCloudinary();
         newPost.contentImg = imageUrl;
       }
+      if (newPost.contentText === "" && newPost.contentImg === "") {
+        return;
+      }
       const res = await axios.post(API_ENDPOINT + "/api/post/addPost", newPost);
       const info = {
         name: "Positive",
@@ -88,7 +91,10 @@ const AddPost = () => {
             <input
               type="text"
               ref={textInputRef}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => {
+                e.preventDefault();
+                setText(e.target.value);
+              }}
               placeholder={`What's on your mind, ${currentUser.username}?`}
             />
           </div>
@@ -113,7 +119,10 @@ const AddPost = () => {
               id="file"
               ref={imgInputRef}
               style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => {
+                e.preventDefault();
+                setFile(e.target.files[0]);
+              }}
             />
             <label htmlFor="file">
               <div className="item">
