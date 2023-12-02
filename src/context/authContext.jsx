@@ -32,7 +32,8 @@ export const AuthContextProvider = ({ children }) => {
       //add lastLogin later
       // console.log(res);
       if (res.status === 200) {
-        setCurrentUser(tmpInputs);
+        // setCurrentUser(res.data);
+        setCurrentUser(pseudoUser);
       } else {
         // alert("Wrong username or password");
         // console.log(res.data);

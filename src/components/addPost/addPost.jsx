@@ -95,7 +95,7 @@ const AddPost = () => {
                 e.preventDefault();
                 setText(e.target.value);
               }}
-              placeholder={`What's on your mind, ${currentUser.username}?`}
+              placeholder={`What's on your mind, ${currentUser.fullName}?`}
             />
           </div>
           <div className="right">
