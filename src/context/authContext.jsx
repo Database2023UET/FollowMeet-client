@@ -18,6 +18,8 @@ export const AuthContextProvider = ({ children }) => {
         password: "admin",
         fullName: "Admin",
         profilePicture: "https://i.imgur.com/6VBx3io.png",
+        coverPicture:
+          "https://cdna.artstation.com/p/assets/images/images/020/174/718/large/amarth-chen-9.jpg?1566698233",
         id: 1,
       };
 

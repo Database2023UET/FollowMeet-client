@@ -53,12 +53,7 @@ const App = () => {
     return (
       <div>
         <NavBar />
-        <div
-          style={{
-            display: "flex",
-            paddingTop: "4.748rem",
-          }}
-        >
+        <div>
           <Outlet />
         </div>
       </div>
