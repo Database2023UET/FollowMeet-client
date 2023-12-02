@@ -14,14 +14,59 @@ export const Post = ({ post }) => {
 
   const [commentOpen, setCommentOpen] = useState(false);
 
-  const [reacted, setReacted] = useState(false);
-
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
-  const handleLike = () => {
-    setReacted(!reacted);
-    //request to like post
+  const [reacted, setReacted] = useState(false);
+  const [reacts, setReacts] = useState(0);
+
+  const fetchReacted = async () => {
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/react/isReacted?userId=${currentUser.id}&postId=${post.postId}`
+      );
+      setReacted(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const fetchReacts = async () => {
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/react/getReacts?postId=${post.postId}`
+      );
+      setReacts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleReact = async () => {
+    try {
+      if (reacted) {
+        const res = await axios.post(`${API_ENDPOINT}/api/react/unreactPost`, {
+          postId: post.postId,
+          userId: currentUser.id,
+        });
+        console.log(postOwner.fullName + " " + res.data);
+        setReacted(!reacted);
+      } else {
+        const res = await axios.post(`${API_ENDPOINT}/api/react/reactPost`, {
+          postId: post.postId,
+          userId: currentUser.id,
+        });
+        console.log(postOwner.fullName + " " + res.data);
+        setReacted(!reacted);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchReacted();
+    fetchReacts();
+  }, [reacted]);
 
   const navigate = useNavigate();
 
@@ -43,6 +88,31 @@ export const Post = ({ post }) => {
     };
     fetchPostOwner();
   }, []);
+
+  const getTime = (time) => {
+    const now = new Date().getTime();
+    const created = new Date(time).getTime();
+    const diff = now - created;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const month = Math.floor(days / 30);
+    const year = Math.floor(month / 12);
+    if (year > 0) return year + " year" + (year > 1 ? "s" : "");
+    if (month > 0) return month + " month" + (month > 1 ? "s" : "");
+    if (days > 0) return days + " day" + (days > 1 ? "s" : "");
+    if (hours > 24) {
+      return `${Math.floor(hours / 24)} days`;
+    }
+    if (hours > 0) {
+      return `${hours} hours`;
+    }
+    if (minutes > 0) {
+      return `${minutes} minutes`;
+    }
+    return `${seconds} seconds`;
+  };
 
   return (
     <div className="post">
@@ -72,7 +142,7 @@ export const Post = ({ post }) => {
               >
                 <span className="name">{postOwner.fullName}</span>
               </div>
-              <span className="date">1 min ago</span>
+              <span className="date">{getTime(post.createdAt)} ago</span>
             </div>
           </div>
           <MoreHorizIcon />
@@ -82,13 +152,15 @@ export const Post = ({ post }) => {
           <img src={post.contentImg} alt="" />
         </div>
         <div className="info">
-          <div className="item heart" onClick={handleLike}>
+          <div className="item heart" onClick={handleReact}>
             {reacted ? (
               <FavoriteOutlinedIcon />
             ) : (
               <FavoriteBorderOutlinedIcon />
             )}
-            <span>12 Likes</span>
+            <span>
+              {reacts >= 1000 ? Math.floor(reacts / 1000) + "K" : reacts} Likes
+            </span>
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
