@@ -48,14 +48,12 @@ export const Post = ({ post }) => {
           postId: post.postId,
           userId: currentUser.id,
         });
-        console.log(postOwner.fullName + " " + res.data);
         setReacted(!reacted);
       } else {
         const res = await axios.post(`${API_ENDPOINT}/api/react/reactPost`, {
           postId: post.postId,
           userId: currentUser.id,
         });
-        console.log(postOwner.fullName + " " + res.data);
         setReacted(!reacted);
       }
     } catch (err) {
