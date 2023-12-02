@@ -25,7 +25,10 @@ export const Post = ({ post }) => {
 
   const navigate = useNavigate();
 
-  const [postOwner, setPostOwner] = useState(null);
+  const [postOwner, setPostOwner] = useState({
+    fullName: "",
+    profilePicture: "",
+  });
 
   useEffect(() => {
     const fetchPostOwner = async () => {
@@ -48,7 +51,7 @@ export const Post = ({ post }) => {
         <div className="user">
           <div className="userInfo">
             <img
-              src={currentUser.profilePicture}
+              src={postOwner.profilePicture}
               alt=""
               onClick={() => {
                 navigate(`/profile/${post.ownerId}`);
@@ -68,7 +71,7 @@ export const Post = ({ post }) => {
                   cursor: "pointer",
                 }}
               >
-                <span className="name">{currentUser.fullName}</span>
+                <span className="name">{postOwner.fullName}</span>
               </div>
               <span className="date">1 min ago</span>
             </div>
