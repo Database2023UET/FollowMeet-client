@@ -10,13 +10,15 @@ const Posts = ({ posts }) => {
     {
       postId: 1,
       ownerId: 1,
+      createdAt: "2021-09-01T00:00:00.000Z",
       contentText: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
       contentImg:
         "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
     },
     {
-      postId: 2,
+      postId: 4,
       ownerId: 2,
+      createdAt: "2021-09-01T00:00:00.000Z",
       contentText:
         "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
       contentImg:
@@ -34,7 +36,7 @@ const Posts = ({ posts }) => {
         const res = await axios.get(
           `${API_ENDPOINT}/api/post/getPosts?userId=${currentUser.id}`
         );
-        console.log(res);
+        // console.log(res);
       } catch (err) {
         console.log(err);
       }

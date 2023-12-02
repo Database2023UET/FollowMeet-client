@@ -17,7 +17,8 @@ export const AuthContextProvider = ({ children }) => {
         username: "admin",
         password: "admin",
         fullName: "Admin",
-        profilePicture: "https://i.imgur.com/6VBx3io.png",
+        profilePicture:
+          "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
         coverPicture:
           "https://cdna.artstation.com/p/assets/images/images/020/174/718/large/amarth-chen-9.jpg?1566698233",
         id: 1,
