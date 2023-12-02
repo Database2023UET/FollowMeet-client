@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import bcrypt from "bcryptjs-react";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -19,19 +18,16 @@ export const AuthContextProvider = ({ children }) => {
         password: "admin",
         fullName: "Admin",
         profilePicture: "https://i.imgur.com/6VBx3io.png",
-        id: 1,
+        id: 0,
       };
 
       if (inputs.username === pseudoUser.username) {
         if (inputs.password === pseudoUser.password) {
-          pseudoUser.password = bcrypt.hashSync(pseudoUser.password);
           setCurrentUser(pseudoUser);
           return;
         }
       }
       const tmpInputs = { ...inputs };
-      tmpInputs.password = bcrypt.hashSync(tmpInputs.password);
-      loginWithPassword(tmpInputs);
       const res = await axios.post(`${API_ENDPOINT}/api/auth/login`, tmpInputs);
       //add lastLogin later
       // console.log(res);

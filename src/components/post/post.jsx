@@ -5,23 +5,42 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useNavigate } from "react-router-dom";
 import Comments from "../comments/comments";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./post.scss";
 import { AuthContext } from "../../context/authContext";
-
+import axios from "axios";
 export const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
 
   const [commentOpen, setCommentOpen] = useState(false);
 
-  const [liked, setLiked] = useState(false);
+  const [reacted, setReacted] = useState(false);
+
+  const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
   const handleLike = () => {
-    setLiked(!liked);
+    setReacted(!reacted);
     //request to like post
   };
 
   const navigate = useNavigate();
+
+  const [postOwner, setPostOwner] = useState(null);
+
+  useEffect(() => {
+    const fetchPostOwner = async () => {
+      try {
+        const res = await axios.get(`${API_ENDPOINT}/api/user/getUserInfos/`, {
+          userId: post.ownerId,
+        });
+        console.log(res);
+        setPostOwner(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPostOwner();
+  }, []);
 
   return (
     <div className="post">
@@ -29,7 +48,7 @@ export const Post = ({ post }) => {
         <div className="user">
           <div className="userInfo">
             <img
-              src={post.profilePicture}
+              src={currentUser.profilePicture}
               alt=""
               onClick={() => {
                 navigate(`/profile/${post.ownerId}`);
@@ -49,7 +68,7 @@ export const Post = ({ post }) => {
                   cursor: "pointer",
                 }}
               >
-                <span className="name">{post.fullName}</span>
+                <span className="name">{currentUser.fullName}</span>
               </div>
               <span className="date">1 min ago</span>
             </div>
@@ -62,7 +81,11 @@ export const Post = ({ post }) => {
         </div>
         <div className="info">
           <div className="item heart" onClick={handleLike}>
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+            {reacted ? (
+              <FavoriteOutlinedIcon />
+            ) : (
+              <FavoriteBorderOutlinedIcon />
+            )}
             <span>12 Likes</span>
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>

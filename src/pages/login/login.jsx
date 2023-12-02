@@ -15,7 +15,6 @@ const Login = () => {
 
   const { login } = useContext(AuthContext);
   const { showAlert, hideAlert } = useContext(AlertContext);
-  const { toggle, getTheme } = useContext(DarkModeContext);
 
   const navigate = useNavigate();
 
@@ -32,9 +31,7 @@ const Login = () => {
       //wait for 1 second
       setTimeout(() => {
         navigate("/");
-        if (inputs.username === "admin") {
-          window.location.reload();
-        }
+        window.location.reload();
       }, 750);
     } catch (err) {
       const info = {

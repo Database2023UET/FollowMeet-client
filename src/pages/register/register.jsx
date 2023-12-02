@@ -4,7 +4,6 @@ import "./register.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import bcrypt from "bcryptjs-react";
 import { AlertContext } from "../../context/alertContext";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
@@ -36,28 +35,6 @@ const Register = () => {
 
     try {
       const tmpInputs = { ...inputs };
-      if (tmpInputs.password.length < 6) {
-        const info = {
-          name: "Negative",
-          message: "Password must be at least 6 characters",
-          showButton: false,
-        };
-        showAlert(info);
-        setTimeout(() => hideAlert(), 750);
-        return;
-      }
-      if (!/^[a-zA-Z0-9_]+$/.test(tmpInputs.password)) {
-        const info = {
-          name: "Negative",
-          message:
-            "Password must contain only letters, numbers and underscores",
-          showButton: false,
-        };
-        showAlert(info);
-        setTimeout(() => hideAlert(), 750);
-        return;
-      }
-      tmpInputs.password = bcrypt.hashSync(tmpInputs.password);
       // console.log(tmpInputs);
       const res = await axios.post(
         API_ENDPOINT + "/api/auth/register",
@@ -91,7 +68,7 @@ const Register = () => {
         showButton: false,
       };
       showAlert(info);
-      setTimeout(() => hideAlert(), 750);
+      setTimeout(() => hideAlert(), 1500);
       navigate("/register");
     }
   };
