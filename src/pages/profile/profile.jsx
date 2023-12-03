@@ -14,6 +14,7 @@ const Profile = () => {
 
   const [profileOwner, setProfileOwner] = useState(null);
   const [fetchError, setFetchError] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(false);
 
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -30,8 +31,25 @@ const Profile = () => {
         setFetchError(true);
       }
     };
-    fetchProfileOwner();  
+    fetchProfileOwner();
   }, []);
+
+  const fetchIsFollowed = async () => {
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/follow/isFollowed?userId=${currentUser.id}&followingId=${id}`
+      );
+      setIsFollowed(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchIsFollowed();
+    console.log(isFollowed);
+  }, [profileOwner]);
 
   const navigate = useNavigate();
 
@@ -39,9 +57,19 @@ const Profile = () => {
     navigate("/404");
   }
 
-  const handleFollow = () => {
-    setProfileOwner((prev) => ({ ...prev, followed: !prev.followed }));
-    //request to change followed status
+  const handleFollow = async () => {
+    if (isFollowed) {
+      await axios.post(`${API_ENDPOINT}/api/follow/unfollowUser`, {
+        userId: currentUser.id,
+        followingId: id,
+      });
+    } else {
+      await axios.post(`${API_ENDPOINT}/api/follow/followUser`, {
+        userId: currentUser.id,
+        followingId: id,
+      });
+    }
+    fetchIsFollowed();
   };
 
   const handleUpdateInfo = () => {
@@ -77,12 +105,10 @@ const Profile = () => {
                     </button>
                   ) : (
                     <button
-                      className={
-                        profileOwner.followed ? "unfollow__btn" : "follow__btn"
-                      }
+                      className={isFollowed ? "unfollow__btn" : "follow__btn"}
                       onClick={handleFollow}
                     >
-                      {profileOwner.followed ? "Unfollow" : "Follow"}
+                      {isFollowed ? "Unfollow" : "Follow"}
                     </button>
                   )}
                   <EmailOutlinedIcon />
