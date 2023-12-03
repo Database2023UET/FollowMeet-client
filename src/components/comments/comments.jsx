@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import "./comments.scss";
 import { useNavigate } from "react-router";
-import axios from "axios";
-import { getTime } from "../../utils/getTime";
 
 const Comments = ({ postId, onAddComment }) => {
   const { currentUser } = useContext(AuthContext);
@@ -50,6 +48,7 @@ const Comments = ({ postId, onAddComment }) => {
     fetchComments();
   }, []);
 
+
   useEffect(() => {
     const intervalId = setInterval(fetchComments, 5000);
 
@@ -82,8 +81,9 @@ const Comments = ({ postId, onAddComment }) => {
       {comments.map((comment) => 
         (
         <div className="comment" key={comment.ownerId}>
+
           <img
-            src={comment.commentOwnerInfos.profilePicture}
+            src={comment.profilePicture}
             alt=""
             onClick={() => {
               navigate(`/profile/${comment.commentOwnerInfos.username}`);
@@ -102,10 +102,12 @@ const Comments = ({ postId, onAddComment }) => {
                 color: "inherit",
                 cursor: "pointer",
               }}
-            > {comment.commentOwnerInfos.fullName}</span>
-            <p>{comment.contentText}</p>
+            >
+              {comment.fullName}
+            </span>
+            <p>{comment.rawText}</p>
           </div>
-          <span className="comment__date">{getTime(comment.createdAt)}</span>
+          <span className="comment__date">1 hour ago</span>
         </div>
       ))}
     </div>
