@@ -13,12 +13,13 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "./context/darkModeContext.jsx";
 import { AuthContext } from "./context/authContext.jsx";
 import Page404 from "./pages/page404/page404.jsx";
 
 const App = () => {
+  const [showLRBar, setShowLRBar] = useState(true);
   const { currentUser } = useContext(AuthContext);
 
   const { darkMode } = useContext(DarkModeContext);
@@ -32,14 +33,18 @@ const App = () => {
       <div>
         <NavBar />
         <div
-          style={{
-            display: "flex",
-            paddingTop: "4.748rem",
-          }}
+          style={
+            showLRBar
+              ? {
+                  display: "flex",
+                  paddingTop: "4.748rem",
+                }
+              : { display: "flex" }
+          }
         >
-          <LeftBar />
+          {showLRBar && <LeftBar />}
           <Outlet />
-          <RightBar />
+          {showLRBar && <RightBar />}
         </div>
       </div>
     );
@@ -84,6 +89,10 @@ const App = () => {
           path: "/profile/:id",
           element: <Profile />,
         },
+        {
+          path: "*",
+          element: <Page404 />,
+        },
       ],
     },
     {
@@ -93,16 +102,6 @@ const App = () => {
     {
       path: "/register",
       element: <Register />,
-    },
-    {
-      path: "*",
-      element: <Layout404 />,
-      children: [
-        {
-          path: "*",
-          element: <Page404 />,
-        },
-      ],
     },
   ]);
 
