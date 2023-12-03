@@ -4,7 +4,6 @@ import "./comments.scss";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { getTime } from "../../utils/getTime";
-import { getUsernameById } from "../../utils/getUsernameById";
 
 const Comments = ({ postId, onAddComment }) => {
   const { currentUser } = useContext(AuthContext);
