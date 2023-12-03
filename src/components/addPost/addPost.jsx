@@ -34,24 +34,37 @@ const AddPost = () => {
   };
 
   const postToCloudinary = async () => {
-    return new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", cloudinary.upload_preset);
-      const xhr = new XMLHttpRequest();
-      xhr.open(
-        "POST",
-        `https://api.cloudinary.com/v1_1/${cloudinary.cloud_name}/image/upload`
-      );
-      xhr.onload = () => {
-        const res = JSON.parse(xhr.responseText);
-        resolve(res.secure_url);
-      };
-      xhr.onerror = (err) => {
-        reject(err);
-      };
-      xhr.send(formData);
-    });
+    return new Promise(
+      (resolve, reject) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", cloudinary.upload_preset);
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "POST",
+          `https://api.cloudinary.com/v1_1/${cloudinary.cloud_name}/image/upload`
+        );
+        xhr.onload = () => {
+          const res = JSON.parse(xhr.responseText);
+          resolve(res.secure_url);
+        };
+        xhr.onerror = (err) => {
+          reject(err);
+        };
+        xhr.send(formData);
+      },
+      (err) => {
+        const info = {
+          name: "Negative",
+          message: err,
+          showButton: false,
+        };
+        showAlert(info);
+        setTimeout(() => {
+          hideAlert();
+        }, 750);
+      }
+    );
   };
 
   const handleAddPost = async () => {
