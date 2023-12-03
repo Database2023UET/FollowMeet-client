@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { getTime } from "../../utils/getTime";
 
-const Comments = ({ postId }) => {
+const Comments = ({ postId, onAddComment }) => {
   const { currentUser } = useContext(AuthContext);
   //Temporary
 
@@ -13,6 +13,7 @@ const Comments = ({ postId }) => {
 
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
   const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
 
   const fetchComments = async () => {
     try {
@@ -26,6 +27,7 @@ const Comments = ({ postId }) => {
         })
       );
       setComments(commentsWithOwnerInfo);
+      onAddComment(commentsWithOwnerInfo.length);
     } catch (err) {
       console.log(err);
     }
@@ -47,14 +49,34 @@ const Comments = ({ postId }) => {
     fetchComments();
   }, []);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const intervalId = setInterval(fetchComments, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const handleSendComment = async () => {
+    try {
+      const contentText = document.querySelector(".write input").value;
+      if (contentText == "") return;
+      await axios.post(`${API_ENDPOINT}/api/comment/addComment`, {
+        userId,
+        postId,
+        contentText,
+      });
+      document.querySelector(".write input").value = "";
+      await fetchComments();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="comments">
       <div className="write">
         <img src={currentUser.profilePicture} alt="" />
-        <input type="text" placeholder="write a comment" />
-        <button>Send</button>
+        <input type="text" placeholder="Write a comment" />
+        <button onClick={handleSendComment}>Send</button>
       </div>
       {comments.map((comment) => 
         (
