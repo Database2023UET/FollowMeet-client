@@ -1,7 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import "./comments.scss";
 import { useNavigate } from "react-router";
+import axios from "axios";
+import { getTime } from "../../utils/getTime";
 
 const Comments = ({ postId, onAddComment }) => {
   const { currentUser } = useContext(AuthContext);
@@ -20,7 +22,9 @@ const Comments = ({ postId, onAddComment }) => {
       );
       const commentsWithOwnerInfo = await Promise.all(
         res.data.map(async (comment) => {
-          const commentOwnerInfos = await fetchCommentOwnerInfos(comment.ownerId);
+          const commentOwnerInfos = await fetchCommentOwnerInfos(
+            comment.ownerId
+          );
           return { ...comment, commentOwnerInfos };
         })
       );
@@ -47,7 +51,6 @@ const Comments = ({ postId, onAddComment }) => {
   useEffect(() => {
     fetchComments();
   }, []);
-
 
   useEffect(() => {
     const intervalId = setInterval(fetchComments, 5000);
@@ -78,12 +81,10 @@ const Comments = ({ postId, onAddComment }) => {
         <input type="text" placeholder="Write a comment" />
         <button onClick={handleSendComment}>Send</button>
       </div>
-      {comments.map((comment) => 
-        (
+      {comments.map((comment) => (
         <div className="comment" key={comment.ownerId}>
-
           <img
-            src={comment.profilePicture}
+            src={comment.commentOwnerInfos.profilePicture}
             alt=""
             onClick={() => {
               navigate(`/profile/${comment.commentOwnerInfos.username}`);
@@ -103,11 +104,12 @@ const Comments = ({ postId, onAddComment }) => {
                 cursor: "pointer",
               }}
             >
-              {comment.fullName}
+              {" "}
+              {comment.commentOwnerInfos.fullName}
             </span>
-            <p>{comment.rawText}</p>
+            <p>{comment.contentText}</p>
           </div>
-          <span className="comment__date">1 hour ago</span>
+          <span className="comment__date">{getTime(comment.createdAt)}</span>
         </div>
       ))}
     </div>
