@@ -1,13 +1,12 @@
 /**
- * function to format time 
+ * function to format time
  * @param {*} time created time
- * @returns 
+ * @returns
  */
 export const getTime = (time) => {
   const now = new Date().getTime();
   const created = new Date(time).getTime();
   const diff = now - created;
-  if (diff <= 3000) return "Just now";
   const seconds = Math.floor(diff / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
