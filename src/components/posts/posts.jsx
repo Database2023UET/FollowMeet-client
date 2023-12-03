@@ -5,8 +5,6 @@ import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 
 const Posts = ({ posts }) => {
-  //thay posts = [] bằng props posts
-
   return (
     <div className="posts">
       {posts.map((post) => (

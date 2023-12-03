@@ -22,7 +22,7 @@ export const Post = ({ post }) => {
   const fetchReacted = async () => {
     try {
       const res = await axios.get(
-        `${API_ENDPOINT}/api/react/isReacted?userId=${currentUser.id}&postId=${post.postId}`
+        `${API_ENDPOINT}/api/react/isReacted?userId=${currentUser.id}&postId=${post.id}`
       );
       setReacted(res.data);
     } catch (err) {
@@ -43,20 +43,19 @@ export const Post = ({ post }) => {
 
   const handleReact = async () => {
     try {
-      // console.log(post.id + " " + reacted);
       if (reacted) {
-        const res = await axios.post(`${API_ENDPOINT}/api/react/unreactPost`, {
+        await axios.post(`${API_ENDPOINT}/api/react/unreactPost`, {
           postId: post.id,
           userId: currentUser.id,
         });
-        setReacted(false);
       } else {
-        const res = await axios.post(`${API_ENDPOINT}/api/react/reactPost`, {
+        await axios.post(`${API_ENDPOINT}/api/react/reactPost`, {
           postId: post.id,
           userId: currentUser.id,
         });
-        setReacted(true);
       }
+      fetchReacted();
+      fetchReacts();
     } catch (err) {
       console.log(err);
     }
@@ -66,12 +65,6 @@ export const Post = ({ post }) => {
     fetchReacted();
     fetchReacts();
   }, []);
-
-  useEffect(() => {
-    fetchReacted();
-    fetchReacts();
-    console.log(post.id + " " + reacted);
-  }, [reacted]);
 
   const navigate = useNavigate();
 
