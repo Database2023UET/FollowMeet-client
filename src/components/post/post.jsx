@@ -132,7 +132,7 @@ export const Post = ({ post }) => {
               src={postOwner.profilePicture}
               alt=""
               onClick={() => {
-                navigate(`/profile/${post.ownerId}`);
+                navigate(`/profile/${postOwner.username}`);
                 window.scrollTo(0, 0);
               }}
               style={{ cursor: "pointer" }}
@@ -140,7 +140,7 @@ export const Post = ({ post }) => {
             <div className="details">
               <div
                 onClick={() => {
-                  navigate(`/profile/${post.ownerId}`);
+                  navigate(`/profile/${postOwner.username}`);
                   window.scrollTo(0, 0);
                 }}
                 style={{
