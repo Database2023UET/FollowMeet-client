@@ -4,6 +4,7 @@ import "./comments.scss";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { getTime } from "../../utils/getTime";
+import { getUsernameById } from "../../utils/getUsernameById";
 
 const Comments = ({ postId, onAddComment }) => {
   const { currentUser } = useContext(AuthContext);
@@ -27,6 +28,8 @@ const Comments = ({ postId, onAddComment }) => {
         })
       );
       setComments(commentsWithOwnerInfo);
+      console.log(commentsWithOwnerInfo);
+      console.log(commentsWithOwnerInfo[0].commentOwnerInfos.username);
       onAddComment(commentsWithOwnerInfo.length);
     } catch (err) {
       console.log(err);
@@ -38,7 +41,6 @@ const Comments = ({ postId, onAddComment }) => {
       const res = await axios.get(
         `${API_ENDPOINT}/api/user/getUserInfos?userId=${userId}`
       );
-      console.log(res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -85,7 +87,7 @@ const Comments = ({ postId, onAddComment }) => {
             src={comment.commentOwnerInfos.profilePicture}
             alt=""
             onClick={() => {
-              navigate(`/profile/${comment.ownerId}`);
+              navigate(`/profile/${comment.commentOwnerInfos.username}`);
               window.scrollTo(0, 0);
             }}
             style={{ cursor: "pointer" }}
@@ -93,7 +95,7 @@ const Comments = ({ postId, onAddComment }) => {
           <div className="comment__info">
             <span
               onClick={() => {
-                navigate(`/profile/${comment.ownerId}`);
+                navigate(`/profile/${comment.commentOwnerInfos.username}`);
                 window.scrollTo(0, 0);
               }}
               style={{
