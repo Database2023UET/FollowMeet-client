@@ -80,12 +80,12 @@ const Comments = ({ postId, onAddComment }) => {
       </div>
       {comments.map((comment) => 
         (
-        <div className="comment" key={comment.id}>
+        <div className="comment" key={comment.ownerId}>
           <img
             src={comment.commentOwnerInfos.profilePicture}
             alt=""
             onClick={() => {
-              navigate(`/profile/${comment.id}`);
+              navigate(`/profile/${comment.ownerId}`);
               window.scrollTo(0, 0);
             }}
             style={{ cursor: "pointer" }}
@@ -93,7 +93,7 @@ const Comments = ({ postId, onAddComment }) => {
           <div className="comment__info">
             <span
               onClick={() => {
-                navigate(`/profile/${comment.id}`);
+                navigate(`/profile/${comment.ownerId}`);
                 window.scrollTo(0, 0);
               }}
               style={{
