@@ -12,7 +12,6 @@ const Profile = () => {
 
   const { username } = useParams();
   const location = useLocation();
-  let id = new URLSearchParams(location.search).get('id');
 
   const [profileOwner, setProfileOwner] = useState(null);
   const [fetchError, setFetchError] = useState(false);
@@ -22,17 +21,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (username) {
-        try {
-          const res = await axios.get(
-            `${API_ENDPOINT}/api/user/getUserIdByUsername?username=${username}`
-          );
-          id = res.data;
-        } catch (err) {
-          console.log(err);
-        }
-      }
-  
+      const id = await fetchIdOfProfileOwner(username);
       try {
         const res = await axios.get(
           `${API_ENDPOINT}/api/user/getUserInfos?userId=${id}`
@@ -48,7 +37,21 @@ const Profile = () => {
     fetchData();  
   }, []);
 
+  const fetchIdOfProfileOwner = async (username) => {
+    let id = new URLSearchParams(location.search).get('id');
+    if (id) return id;
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/user/getUserIdByUsername?username=${username}`
+      );
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const fetchIsFollowed = async () => {
+    const id = await fetchIdOfProfileOwner(username);
     try {
       const res = await axios.get(
         `${API_ENDPOINT}/api/follow/isFollowed?userId=${currentUser.id}&followingId=${id}`
@@ -72,6 +75,7 @@ const Profile = () => {
   }
 
   const handleFollow = async () => {
+    const id = await fetchIdOfProfileOwner(username);
     if (isFollowed) {
       await axios.post(`${API_ENDPOINT}/api/follow/unfollowUser`, {
         userId: currentUser.id,

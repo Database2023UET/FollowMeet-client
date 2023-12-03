@@ -80,7 +80,7 @@ const NavBar = () => {
         <PersonOutlinedIcon
           className="NavButton"
           onClick={() => {
-            navigate(`/profile/${currentUser.id}`);
+            navigate(`/profile/${currentUser.username}`);
             window.scrollTo(0, 0);
           }}
         />
@@ -91,14 +91,14 @@ const NavBar = () => {
             src={currentUser.profilePicture}
             alt="Avatar"
             onClick={() => {
-              navigate(`/profile/${currentUser.id}`);
+              navigate(`/profile/${currentUser.username}`);
               window.scrollTo(0, 0);
               window.location.reload();
             }}
           />
           <span
             onClick={() => {
-              navigate(`/profile/${currentUser.id}`);
+              navigate(`/profile/${currentUser.username}`);
               window.scrollTo(0, 0);
               window.location.reload();
             }}
