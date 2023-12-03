@@ -2,7 +2,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./profile.scss";
 import Posts from "../../components/posts/posts";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
@@ -10,7 +10,9 @@ import axios from "axios";
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
 
-  const id = useParams().id;
+  const { username } = useParams();
+  const location = useLocation();
+  let id = new URLSearchParams(location.search).get('id');
 
   const [profileOwner, setProfileOwner] = useState(null);
   const [fetchError, setFetchError] = useState(false);
@@ -19,7 +21,18 @@ const Profile = () => {
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
   useEffect(() => {
-    const fetchProfileOwner = async () => {
+    const fetchData = async () => {
+      if (username) {
+        try {
+          const res = await axios.get(
+            `${API_ENDPOINT}/api/user/getUserIdByUsername?username=${username}`
+          );
+          id = res.data;
+        } catch (err) {
+          console.log(err);
+        }
+      }
+  
       try {
         const res = await axios.get(
           `${API_ENDPOINT}/api/user/getUserInfos?userId=${id}`
@@ -31,7 +44,8 @@ const Profile = () => {
         setFetchError(true);
       }
     };
-    fetchProfileOwner();
+  
+    fetchData();  
   }, []);
 
   const fetchIsFollowed = async () => {
