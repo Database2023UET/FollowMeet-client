@@ -1,51 +1,29 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import "./comments.scss";
 import { useNavigate } from "react-router";
-import axios from "axios";
-import { getTime } from "../../utils/getTime";
 
-const Comments = ({ postId }) => {
+const Comments = ({ comments, postId }) => {
   const { currentUser } = useContext(AuthContext);
   //Temporary
-
-  const userId = currentUser.id;
-
-  const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
-  const [comments, setComments] = useState([]);
-
-  const fetchComments = async () => {
-    try {
-      const res = await axios.get(
-        `${API_ENDPOINT}/api/comment/getComments?postId=${postId}`
-      );
-      const commentsWithOwnerInfo = await Promise.all(
-        res.data.map(async (comment) => {
-          const commentOwnerInfos = await fetchCommentOwnerInfos(comment.ownerId);
-          return { ...comment, commentOwnerInfos };
-        })
-      );
-      setComments(commentsWithOwnerInfo);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const fetchCommentOwnerInfos = async (userId) => {
-    try {
-      const res = await axios.get(
-        `${API_ENDPOINT}/api/user/getUserInfos?userId=${userId}`
-      );
-      console.log(res.data);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
+  comments = [
+    {
+      id: 1,
+      rawText:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
+      fullName: "Nguyen Van A",
+      profilePicture:
+        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    },
+    {
+      id: 2,
+      rawText:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
+      fullName: "Jane Doe",
+      profilePicture:
+        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    },
+  ];
 
   const navigate = useNavigate();
 
@@ -56,11 +34,10 @@ const Comments = ({ postId }) => {
         <input type="text" placeholder="write a comment" />
         <button>Send</button>
       </div>
-      {comments.map((comment) => 
-        (
+      {comments.map((comment) => (
         <div className="comment" key={comment.id}>
           <img
-            src={comment.commentOwnerInfos.profilePicture}
+            src={comment.profilePicture}
             alt=""
             onClick={() => {
               navigate(`/profile/${comment.id}`);
@@ -79,10 +56,12 @@ const Comments = ({ postId }) => {
                 color: "inherit",
                 cursor: "pointer",
               }}
-            > {comment.commentOwnerInfos.fullName}</span>
-            <p>{comment.contentText}</p>
+            >
+              {comment.fullName}
+            </span>
+            <p>{comment.rawText}</p>
           </div>
-          <span className="comment__date">{getTime(comment.createdAt)}</span>
+          <span className="comment__date">1 hour ago</span>
         </div>
       ))}
     </div>
