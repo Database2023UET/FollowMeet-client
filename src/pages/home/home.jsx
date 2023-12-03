@@ -19,7 +19,6 @@ const Home = () => {
           `${API_ENDPOINT}/api/post/getPosts?userId=${currentUser.id}`
         );
         setPosts(res.data);
-        console.log(posts);
       } catch (err) {
         console.log(err);
       }
