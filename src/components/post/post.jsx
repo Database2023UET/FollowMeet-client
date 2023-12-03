@@ -15,12 +15,28 @@ export const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
 
   const [commentOpen, setCommentOpen] = useState(false);
+  const [numComments, setNumComments] = useState(0);
 
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
   const [reacted, setReacted] = useState(false);
   const [reacts, setReacts] = useState(0);
   
+  const fetchNumComments = async () => {
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/comment/getNumComments?postId=${post.id}`
+      );
+      setNumComments(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onAddComment = async (numComments) => {
+    console.log(numComments);
+    setNumComments(numComments);
+  };
 
   const fetchReacted = async () => {
     try {
@@ -67,7 +83,9 @@ export const Post = ({ post }) => {
   useEffect(() => {
     fetchReacted();
     fetchReacts();
+    fetchNumComments();
   }, []);
+  
 
   const navigate = useNavigate();
 
@@ -88,6 +106,21 @@ export const Post = ({ post }) => {
       }
     };
     fetchPostOwner();
+  }, []);
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      await fetchReacts();
+      await fetchNumComments();
+    };  
+
+    fetchDetails();
+
+    // Then fetch comments every 5 seconds
+    const intervalId = setInterval(fetchDetails, 5000);
+  
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -140,14 +173,14 @@ export const Post = ({ post }) => {
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            12 Comments
+            <span>{numComments}</span>
           </div>
           <div className="item">
             <ShareOutlinedIcon />
             Share
           </div>
         </div>
-        {commentOpen && <Comments postId={post.id} />}
+        {commentOpen && <Comments postId={post.id} onAddComment={onAddComment} />}
       </div>
     </div>
   );

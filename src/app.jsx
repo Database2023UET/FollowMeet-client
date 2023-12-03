@@ -84,9 +84,13 @@ const App = () => {
           element: <Home />,
         },
         {
-          path: "/profile/:id",
+          path: "/profile/:username",
           element: <Profile />,
         },
+        {
+          path: "/profile",
+          element: <Profile />,
+        }
       ],
     },
     {
