@@ -58,9 +58,7 @@ const App = () => {
     return (
       <div>
         <NavBar />
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     );
   };
@@ -89,10 +87,6 @@ const App = () => {
           path: "/profile/:id",
           element: <Profile />,
         },
-        {
-          path: "*",
-          element: <Page404 />,
-        },
       ],
     },
     {
@@ -102,6 +96,16 @@ const App = () => {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "*",
+      element: <Layout404 />,
+      children: [
+        {
+          path: "*",
+          element: <Page404 />,
+        },
+      ],
     },
   ]);
 
