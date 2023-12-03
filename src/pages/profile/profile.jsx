@@ -2,11 +2,10 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./profile.scss";
 import Posts from "../../components/posts/posts";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
-import Page404 from "../page404/page404";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -14,6 +13,7 @@ const Profile = () => {
   const id = useParams().id;
 
   const [profileOwner, setProfileOwner] = useState(null);
+  const [fetchError, setFetchError] = useState(false);
 
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -27,10 +27,17 @@ const Profile = () => {
         console.log(res.data);
       } catch (err) {
         console.log(err);
+        setFetchError(true);
       }
     };
-    fetchProfileOwner();
+    fetchProfileOwner();  
   }, []);
+
+  const navigate = useNavigate();
+
+  if (fetchError) {
+    navigate("/404");
+  }
 
   const handleFollow = () => {
     setProfileOwner((prev) => ({ ...prev, followed: !prev.followed }));
