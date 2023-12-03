@@ -33,7 +33,7 @@ export const Post = ({ post }) => {
   const fetchReacts = async () => {
     try {
       const res = await axios.get(
-        `${API_ENDPOINT}/api/react/getReacts?postId=${post.postId}`
+        `${API_ENDPOINT}/api/react/getReacts?postId=${post.id}`
       );
       setReacts(res.data);
     } catch (err) {
@@ -43,18 +43,19 @@ export const Post = ({ post }) => {
 
   const handleReact = async () => {
     try {
+      // console.log(post.id + " " + reacted);
       if (reacted) {
         const res = await axios.post(`${API_ENDPOINT}/api/react/unreactPost`, {
-          postId: post.postId,
+          postId: post.id,
           userId: currentUser.id,
         });
-        setReacted(!reacted);
+        setReacted(false);
       } else {
         const res = await axios.post(`${API_ENDPOINT}/api/react/reactPost`, {
-          postId: post.postId,
+          postId: post.id,
           userId: currentUser.id,
         });
-        setReacted(!reacted);
+        setReacted(true);
       }
     } catch (err) {
       console.log(err);
@@ -64,6 +65,12 @@ export const Post = ({ post }) => {
   useEffect(() => {
     fetchReacted();
     fetchReacts();
+  }, []);
+
+  useEffect(() => {
+    fetchReacted();
+    fetchReacts();
+    console.log(post.id + " " + reacted);
   }, [reacted]);
 
   const navigate = useNavigate();
@@ -147,7 +154,7 @@ export const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.contentText}</p>
-          <img src={post.contentImg} alt="" />
+          {post.contentImg && <img src={post.contentImg} alt="" />}
         </div>
         <div className="info">
           <div className="item heart" onClick={handleReact}>
@@ -169,7 +176,7 @@ export const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments comments={null} postId={post.postId} />}
+        {commentOpen && <Comments comments={null} postId={post.id} />}
       </div>
     </div>
   );

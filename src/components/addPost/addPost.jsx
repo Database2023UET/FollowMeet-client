@@ -18,6 +18,7 @@ const AddPost = () => {
   const imgInputRef = useRef();
   const textInputRef = useRef();
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+  const [isActionDone, setIsActionDone] = useState(true);
 
   const handleCancelImage = () => {
     setFile(null);
@@ -29,6 +30,7 @@ const AddPost = () => {
     imgInputRef.current.value = "";
     setText("");
     textInputRef.current.value = "";
+    setIsActionDone(true);
   };
 
   const postToCloudinary = async () => {
@@ -53,6 +55,8 @@ const AddPost = () => {
   };
 
   const handleAddPost = async () => {
+    if (!isActionDone) return;
+    setIsActionDone(false);
     try {
       const newPost = {
         userId: currentUser.id,
@@ -79,6 +83,7 @@ const AddPost = () => {
       resetAddPost();
     } catch (err) {
       console.log(err);
+      setIsActionDone(true);
     }
   };
 
