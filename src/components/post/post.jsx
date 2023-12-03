@@ -9,6 +9,8 @@ import { useContext, useEffect, useState } from "react";
 import "./post.scss";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
+import { getTime } from "../../utils/getTime";
+
 export const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
 
@@ -18,6 +20,7 @@ export const Post = ({ post }) => {
 
   const [reacted, setReacted] = useState(false);
   const [reacts, setReacts] = useState(0);
+  
 
   const fetchReacted = async () => {
     try {
@@ -87,31 +90,6 @@ export const Post = ({ post }) => {
     fetchPostOwner();
   }, []);
 
-  const getTime = (time) => {
-    const now = new Date().getTime();
-    const created = new Date(time).getTime();
-    const diff = now - created;
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const month = Math.floor(days / 30);
-    const year = Math.floor(month / 12);
-    if (year > 0) return year + " year" + (year > 1 ? "s" : "");
-    if (month > 0) return month + " month" + (month > 1 ? "s" : "");
-    if (days > 0) return days + " day" + (days > 1 ? "s" : "");
-    if (hours > 24) {
-      return `${Math.floor(hours / 24)} days`;
-    }
-    if (hours > 0) {
-      return `${hours} hours`;
-    }
-    if (minutes > 0) {
-      return `${minutes} minutes`;
-    }
-    return `${seconds} seconds`;
-  };
-
   return (
     <div className="post">
       <div className="container">
@@ -169,7 +147,7 @@ export const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments comments={null} postId={post.id} />}
+        {commentOpen && <Comments postId={post.id} />}
       </div>
     </div>
   );
