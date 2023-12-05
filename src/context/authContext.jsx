@@ -55,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem("user");
-    //request logout (lastLogout)
+    axios.post(`${API_ENDPOINT}/api/auth/logout`, { userId: currentUser.id });
   };
 
   useEffect(() => {

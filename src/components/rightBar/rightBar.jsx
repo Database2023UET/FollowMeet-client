@@ -3,9 +3,11 @@ import { useNavigate } from "react-router";
 import "./rightBar.scss";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
+import { getTime } from "../../utils/getTime";
 
 const RightBar = () => {
   const [suggestions, setSuggestions] = useState([]);
+  const [followings, setFollowings] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const RightBar = () => {
       const res = await axios.get(
         `${API_ENDPOINT}/api/follow/getOnlineFollowings?userId=${currentUser.id}`
       );
+      setFollowings(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -86,27 +89,27 @@ const RightBar = () => {
         </div>
         <div className="item">
           <span>Followings</span>
-
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
-                alt="Avatar"
-              />
-              <span>Megatron</span>
-              <div className="online" />
+          {followings.map((following) => (
+            <div className="user" key={following.id}>
+              <div
+                className="userInfo"
+                onClick={() => {
+                  navigate(`/profile/${following.username}`);
+                  window.location.reload();
+                }}
+              >
+                <img src={following.profilePicture} alt="Avatar" />
+                <span>{following.fullName}</span>
+                {getTime(following.lastLogout) === "Online" ? (
+                  <div className="online" />
+                ) : (
+                  <div className="status_info">
+                    {getTime(following.lastLogout)} ago
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
-                alt="Avatar"
-              />
-              <span>Megatroll</span>
-            </div>
-            <span className="status_info">8 min ago</span>
-          </div>
+          ))}
         </div>
 
         <div className="item">
