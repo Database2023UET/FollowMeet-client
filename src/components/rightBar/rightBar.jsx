@@ -54,7 +54,6 @@ const RightBar = () => {
       console.log(err);
     }
     let newNode = e.target.parentNode;
-    console.log(newNode);
     newNode.innerHTML = `
         <Button style="background-color: #5271ff !important">Followed</Button>`;
   };

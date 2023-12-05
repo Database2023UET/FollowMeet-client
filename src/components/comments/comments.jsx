@@ -72,11 +72,21 @@ const Comments = ({ postId, onAddComment }) => {
     }
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSendComment();
+    }
+  };
+
   return (
     <div className="comments">
       <div className="write">
         <img src={currentUser.profilePicture} alt="" />
-        <input type="text" placeholder="Write a comment" />
+        <input
+          type="text"
+          placeholder="Write a comment"
+          onKeyDown={handleEnter}
+        />
         <button onClick={handleSendComment}>Send</button>
       </div>
       {comments.map((comment) => (

@@ -32,8 +32,6 @@ export const CloudinaryContextProvider = ({ children }) => {
       console.log("error", error);
     }
     if (result && result.event === "success") {
-      console.log(result);
-      console.log("success", result.info.secure_url);
       setUploadedImage(result.info.secure_url);
       setPreviewImage(uploadedImage);
     }
