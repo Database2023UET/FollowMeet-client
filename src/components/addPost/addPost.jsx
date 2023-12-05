@@ -86,7 +86,7 @@ const AddPost = () => {
       const res = await axios.post(API_ENDPOINT + "/api/post/addPost", newPost);
       const info = {
         name: "Positive",
-        message: res.data,
+        message: "Posted successfully",
         showButton: false,
       };
       showAlert(info);
