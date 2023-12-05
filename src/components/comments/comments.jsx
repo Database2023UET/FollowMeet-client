@@ -22,13 +22,13 @@ const Comments = ({ postId, onAddComment }) => {
       );
       const commentsWithOwnerInfo = await Promise.all(
         res.data.map(async (comment) => {
-          const commentOwnerInfos = await fetchCommentOwnerInfos(comment.ownerId);
+          const commentOwnerInfos = await fetchCommentOwnerInfos(
+            comment.ownerId
+          );
           return { ...comment, commentOwnerInfos };
         })
       );
       setComments(commentsWithOwnerInfo);
-      console.log(commentsWithOwnerInfo);
-      console.log(commentsWithOwnerInfo[0].commentOwnerInfos.username);
       onAddComment(commentsWithOwnerInfo.length);
     } catch (err) {
       console.log(err);
@@ -79,8 +79,7 @@ const Comments = ({ postId, onAddComment }) => {
         <input type="text" placeholder="Write a comment" />
         <button onClick={handleSendComment}>Send</button>
       </div>
-      {comments.map((comment) => 
-        (
+      {comments.map((comment) => (
         <div className="comment" key={comment.ownerId}>
           <img
             src={comment.commentOwnerInfos.profilePicture}
@@ -102,7 +101,10 @@ const Comments = ({ postId, onAddComment }) => {
                 color: "inherit",
                 cursor: "pointer",
               }}
-            > {comment.commentOwnerInfos.fullName}</span>
+            >
+              {" "}
+              {comment.commentOwnerInfos.fullName}
+            </span>
             <p>{comment.contentText}</p>
           </div>
           <span className="comment__date">{getTime(comment.createdAt)}</span>
