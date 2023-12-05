@@ -19,7 +19,6 @@ import { AuthContext } from "./context/authContext.jsx";
 import Page404 from "./pages/page404/page404.jsx";
 
 const App = () => {
-  const [showLRBar, setShowLRBar] = useState(true);
   const { currentUser } = useContext(AuthContext);
 
   const { darkMode } = useContext(DarkModeContext);
@@ -32,19 +31,10 @@ const App = () => {
     return (
       <div>
         <NavBar />
-        <div
-          style={
-            showLRBar
-              ? {
-                  display: "flex",
-                  paddingTop: "4.748rem",
-                }
-              : { display: "flex" }
-          }
-        >
-          {showLRBar && <LeftBar />}
+        <div style={{ display: "flex", paddingTop: "4.748rem" }}>
+          <LeftBar />
           <Outlet />
-          {showLRBar && <RightBar />}
+          <RightBar />
         </div>
       </div>
     );
@@ -84,7 +74,11 @@ const App = () => {
           element: <Home />,
         },
         {
-          path: "/profile/:id",
+          path: "/profile/:username",
+          element: <Profile />,
+        },
+        {
+          path: "profile",
           element: <Profile />,
         },
       ],
