@@ -25,14 +25,11 @@ const RightBar = () => {
   const handleDismiss = (e) => {
     //hide the user
     console.log(e.target.parentNode.parentNode);
-    e.target.parentNode.parentNode.innerHTML = (
-      <div class="user">
-        <div className="userInfo">
-          <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" />
+    e.target.parentNode.parentNode.innerHTML = `
+      <div className="dummyUser" style={{marginTop:"0"}}>
           <span>Dismissed</span>
         </div>
-      </div>
-    );
+      </div>`;
   };
 
   return (
