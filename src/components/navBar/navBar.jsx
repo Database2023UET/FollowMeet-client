@@ -56,7 +56,6 @@ const NavBar = () => {
             window.location.reload();
           }}
         />
-        {/* {console.log(currentUser)} */}
         <HomeOutlinedIcon
           onClick={() => {
             navigate("/");

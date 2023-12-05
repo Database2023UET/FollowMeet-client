@@ -100,6 +100,12 @@ const AddPost = () => {
     }
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleAddPost();
+    }
+  };
+
   return (
     <div className="share">
       <div className="container">
@@ -114,6 +120,7 @@ const AddPost = () => {
                 setText(e.target.value);
               }}
               placeholder={`What's on your mind, ${currentUser.fullName}?`}
+              onKeyDown={handleEnter}
             />
           </div>
           <div className="right">

@@ -34,7 +34,6 @@ export const Post = ({ post }) => {
   };
 
   const onAddComment = async (numComments) => {
-    console.log(numComments);
     setNumComments(numComments);
   };
 

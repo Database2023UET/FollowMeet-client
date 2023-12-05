@@ -46,7 +46,6 @@ const Register = () => {
           message: res.data,
           showButton: false,
         };
-        console.log(res);
         showAlert(info);
         setTimeout(() => {
           hideAlert();
@@ -75,6 +74,15 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleCapslock = (e) => {
+    const CapslockWarning = document.getElementById("CapslockWarning");
+    if (e.getModifierState("CapsLock")) {
+      CapslockWarning.style.display = "block";
+    } else {
+      CapslockWarning.style.display = "none";
+    }
+  };
+
   return (
     <div className="login">
       <div className="card">
@@ -99,12 +107,20 @@ const Register = () => {
                 placeholder="Password"
                 name="password"
                 onChange={handleChange}
+                onKeyUp={handleCapslock}
               />
               <FontAwesomeIcon
                 className="showPassword"
                 icon={showPassword ? faEye : faEyeSlash}
                 onClick={() => setShowPassword(!showPassword)}
               />
+            </div>
+            <div
+              id="CapslockWarning"
+              className="CapslockWarning"
+              style={{ color: "red", display: "none" }}
+            >
+              WARNING! Caps lock is ON.
             </div>
             <input
               type="text"

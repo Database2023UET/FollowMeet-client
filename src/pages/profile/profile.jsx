@@ -27,7 +27,6 @@ const Profile = () => {
           `${API_ENDPOINT}/api/user/getUserInfos?userId=${id}`
         );
         setProfileOwner(res.data);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
         setFetchError(true);
@@ -57,7 +56,6 @@ const Profile = () => {
         `${API_ENDPOINT}/api/follow/isFollowed?userId=${currentUser.id}&followingId=${id}`
       );
       setIsFollowed(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -65,7 +63,6 @@ const Profile = () => {
 
   useEffect(() => {
     fetchIsFollowed();
-    console.log(isFollowed);
   }, [profileOwner]);
 
   const navigate = useNavigate();

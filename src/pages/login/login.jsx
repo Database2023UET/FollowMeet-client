@@ -49,6 +49,15 @@ const Login = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleCapslock = (e) => {
+    const CapslockWarning = document.getElementById("CapslockWarning");
+    if (e.getModifierState("CapsLock")) {
+      CapslockWarning.style.display = "block";
+    } else {
+      CapslockWarning.style.display = "none";
+    }
+  };
+
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -75,12 +84,20 @@ const Login = () => {
                 placeholder="Password"
                 name="password"
                 onChange={handleChange}
+                onKeyUp={handleCapslock}
               />
               <FontAwesomeIcon
                 className="showPassword"
                 icon={showPassword ? faEye : faEyeSlash}
                 onClick={() => setShowPassword(!showPassword)}
               />
+            </div>
+            <div
+              id="CapslockWarning"
+              className="CapslockWarning"
+              style={{ color: "red", display: "none" }}
+            >
+              WARNING! Caps lock is ON.
             </div>
             <button onClick={handleLogin}>Login</button>
           </form>
