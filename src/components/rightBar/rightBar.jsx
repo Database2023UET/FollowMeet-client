@@ -102,6 +102,8 @@ const RightBar = () => {
                 <span>{following.fullName}</span>
                 {getTime(following.lastLogout) === "Online" ? (
                   <div className="online" />
+                ) : getTime(following.lastLogout) === "Just now" ? (
+                  "Just now"
                 ) : (
                   <div className="status_info">
                     {getTime(following.lastLogout)} ago
