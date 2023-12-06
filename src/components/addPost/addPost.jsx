@@ -76,6 +76,12 @@ const AddPost = () => {
         contentText: text,
         contentImg: "",
       };
+      const loadingInfo = {
+        name: "Loading...",
+        message: "Please wait",
+        showButton: false,
+      };
+      showAlert(loadingInfo);
       if (file) {
         const imageUrl = await postToCloudinary();
         newPost.contentImg = imageUrl;
@@ -84,6 +90,7 @@ const AddPost = () => {
         return;
       }
       const res = await axios.post(API_ENDPOINT + "/api/post/addPost", newPost);
+      hideAlert();
       const info = {
         name: "Positive",
         message: "Posted successfully",
