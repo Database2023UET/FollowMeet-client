@@ -88,9 +88,9 @@ const AddPost = () => {
         newPost.contentImg = imageUrl;
       }
       if (newPost.contentText === "" && newPost.contentImg === "") {
-        return;
+        throw new Error("Post cannot be empty");
       }
-      const res = await axios.post(API_ENDPOINT + "/api/post/addPost", newPost);
+      await axios.post(API_ENDPOINT + "/api/post/addPost", newPost);
       hideAlert();
       const info = {
         name: "Positive",
@@ -103,7 +103,7 @@ const AddPost = () => {
       }, 750);
       resetAddPost();
     } catch (err) {
-      console.log(err);
+      hideAlert();
       setIsActionDone(true);
     }
   };

@@ -141,7 +141,13 @@ const RightBar = () => {
           <span>Latest Activities</span>
           {activities.map((activity) => (
             <div className="user" key={activity.key}>
-              <div className="userInfo">
+              <div
+                className="userInfo"
+                onClick={() => {
+                  navigate(`/profile/${activity.owner.username}`);
+                  window.location.reload();
+                }}
+              >
                 <img src={activity.owner.profilePicture} alt="Avatar" />
                 <p>
                   <span>{activity.owner.fullName}</span> {activity.message}
