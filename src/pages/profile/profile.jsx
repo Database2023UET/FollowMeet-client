@@ -158,7 +158,7 @@ const Profile = () => {
                   <MoreVertIcon />
                 </div>
               </div>
-              <Posts posts={userPosts} />
+              <Posts posts={userPosts} infiniteScroll={false} />
             </div>
           </>
         </div>

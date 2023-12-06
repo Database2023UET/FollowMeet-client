@@ -10,9 +10,11 @@ import "./post.scss";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 import { getTime } from "../../utils/getTime";
+import { AlertContext } from "../../context/alertContext";
 
 export const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const [commentOpen, setCommentOpen] = useState(false);
   const [numComments, setNumComments] = useState(0);
@@ -121,6 +123,55 @@ export const Post = ({ post }) => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const handleDelete = async () => {
+    try {
+      await axios.post(`${API_ENDPOINT}/api/post/deletePost`, {
+        postId: post.id,
+        userId: currentUser.id,
+      });
+      const info = {
+        name: "Positive",
+        message: "Post deleted successfully",
+        showButton: false,
+        noCancel: true,
+      };
+      showAlert(info);
+      setTimeout(() => {
+        hideAlert();
+        window.location.reload();
+      }, 1500);
+    } catch (err) {
+      const info = {
+        name: "Negative",
+        message: "You are not allowed to delete this post",
+        showButton: false,
+      };
+      showAlert(info);
+      setTimeout(() => {
+        hideAlert();
+      }, 1500);
+      console.log(err);
+    }
+  };
+
+  const handleMore = () => {
+    const info = {
+      name: "Warning",
+      message: "Are you sure you want to delete this post?",
+      showButton: true,
+      confirmText: "Delete",
+      declineText: "Cancel",
+      handleConfirm: async () => {
+        await handleDelete();
+        // window.location.reload();
+      },
+      handleDecline: () => {
+        hideAlert();
+      },
+    };
+    showAlert(info);
+  };
+
   return (
     <div className="post">
       <div className="container">
@@ -156,7 +207,7 @@ export const Post = ({ post }) => {
               </span>
             </div>
           </div>
-          <MoreHorizIcon />
+          <MoreHorizIcon onClick={handleMore} style={{ cursor: "pointer" }} />
         </div>
         <div className="content">
           <p>{post.contentText}</p>

@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <div className="home">
       <AddPost />
-      <Posts posts={posts} />
+      <Posts posts={posts} infiniteScroll={true} />
     </div>
   );
 };

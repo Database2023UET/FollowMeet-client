@@ -1,13 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./comments.scss";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { getTime } from "../../utils/getTime";
+import { AlertContext } from "../../context/alertContext";
 
 const Comments = ({ postId, onAddComment }) => {
   const { currentUser } = useContext(AuthContext);
-  //Temporary
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const userId = currentUser.id;
 
@@ -78,6 +80,54 @@ const Comments = ({ postId, onAddComment }) => {
     }
   };
 
+  const handleDelete = async (commentId) => {
+    try {
+      await axios.post(`${API_ENDPOINT}/api/comment/deleteComment`, {
+        commentId: commentId,
+        userId: currentUser.id,
+      });
+      const info = {
+        name: "Positive",
+        message: "Comment deleted successfully",
+        showButton: false,
+        noCancel: true,
+      };
+      showAlert(info);
+      setTimeout(() => {
+        hideAlert();
+      }, 2000);
+      await fetchComments();
+    } catch (err) {
+      const info = {
+        name: "Negative",
+        message: "You are not allowed to delete this comment",
+        showButton: false,
+      };
+      showAlert(info);
+      setTimeout(() => {
+        hideAlert();
+      }, 1500);
+      console.log(err);
+    }
+  };
+
+  const handleMore = (commentId) => {
+    const info = {
+      name: "Warning",
+      message: "Are you sure you want to delete this comment?",
+      showButton: true,
+      confirmText: "Delete",
+      declineText: "Cancel",
+      handleConfirm: async () => {
+        await handleDelete(commentId);
+      },
+      handleDecline: () => {
+        hideAlert();
+      },
+    };
+    showAlert(info);
+  };
+
   return (
     <div className="comments">
       <div className="write">
@@ -117,7 +167,15 @@ const Comments = ({ postId, onAddComment }) => {
             </span>
             <p>{comment.contentText}</p>
           </div>
-          <span className="comment__date">{getTime(comment.createdAt)}</span>
+          <span className="comment__date">
+            {getTime(comment.createdAt) === "Just now"
+              ? "Just now"
+              : getTime(comment.createdAt) + " ago"}
+          </span>
+          <MoreHorizIcon
+            onClick={() => handleMore(comment.id)}
+            style={{ cursor: "pointer" }}
+          />
         </div>
       ))}
     </div>
