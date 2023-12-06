@@ -12,13 +12,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <DarkModeContextProvider>
       <AlertContextProvider>
-        <UpdateInfoContextProvider>
         <AuthContextProvider>
-          <CloudinaryContextProvider>
-            <App />
-          </CloudinaryContextProvider>
+          <UpdateInfoContextProvider>
+            <CloudinaryContextProvider>
+              <App />
+            </CloudinaryContextProvider>
+          </UpdateInfoContextProvider>
         </AuthContextProvider>
-        </UpdateInfoContextProvider>
       </AlertContextProvider>
     </DarkModeContextProvider>
   </React.StrictMode>
