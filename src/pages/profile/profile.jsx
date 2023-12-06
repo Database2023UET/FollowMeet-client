@@ -6,6 +6,7 @@ import { useNavigate, useParams, useLocation } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
+import { UpdateInfoContext } from "../../context/updateInfoContext";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -16,6 +17,7 @@ const Profile = () => {
   const [profileOwner, setProfileOwner] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
+  const { showPopout, hidePopout } = useContext(UpdateInfoContext);
 
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -91,6 +93,7 @@ const Profile = () => {
   };
 
   const handleUpdateInfo = () => {
+    showPopout(currentUser);
     //popup to update info
     //then request to update info
   };

@@ -17,6 +17,8 @@ import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "./context/darkModeContext.jsx";
 import { AuthContext } from "./context/authContext.jsx";
 import Page404 from "./pages/page404/page404.jsx";
+import { UpdateInfoContext } from "./context/updateInfoContext.jsx";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -85,7 +87,7 @@ const App = () => {
         {
           path: "/profile",
           element: <Profile />,
-        },
+        }
       ],
     },
     {
