@@ -12,6 +12,7 @@ export const AlertContextProvider = ({ children }) => {
     showButton: true,
     confirmText: "Confirm",
     declineText: "Cancel",
+    noCancel: false,
     handleConfirm: () => {
       console.log("confirm");
     },

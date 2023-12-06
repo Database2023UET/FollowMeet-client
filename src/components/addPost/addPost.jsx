@@ -80,6 +80,7 @@ const AddPost = () => {
         name: "Loading...",
         message: "Please wait",
         showButton: false,
+        noCancel: true,
       };
       showAlert(loadingInfo);
       if (file) {
