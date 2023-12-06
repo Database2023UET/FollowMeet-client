@@ -118,7 +118,7 @@
   .form__input {
     width: clamp(120px, 50vw, 420px);
     height: 3rem;
-    padding: 0.5rem;
+    // padding: 0.5rem;
     border: none;
     border-bottom: 1px solid $grey;
     margin: 0.625rem auto;
@@ -133,7 +133,7 @@
 
     &:focus + .form__label,
     &:not(:placeholder-shown) + .form__label {
-      transform: translateY(-4.5rem) scale(1);
+      transform: translateY(-5rem) scale(1);
       color: $black;
     }
 

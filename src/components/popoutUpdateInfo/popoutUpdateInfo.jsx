@@ -21,15 +21,18 @@ const PopoutUpdateInfo = ({}) => {
     let messageFailed = "";
     const username = document.getElementById("username").value;
     const fullName = document.getElementById("fullName").value;
+    const Biography = document.getElementById("Biography").value;
     const email = document.getElementById("email").value;
     const data = {
       userId: currentUser.id,
       username: username,
       fullName: fullName,
+      bio: Biography,
       email: email,
     };
     if (!username) delete data.username;
     if (!fullName) delete data.fullName;
+    if (!Biography) delete data.bio;
     if (!email) delete data.email;
     try {
       await axios.post(`${API_ENDPOINT}/api/user/updateInfo`, data);
@@ -46,6 +49,7 @@ const PopoutUpdateInfo = ({}) => {
     } catch (err) {
       currentUser.username = username || currentUser.username;
       currentUser.fullName = fullName || currentUser.fullName;
+      currentUser.bio = Biography || currentUser.bio;
       currentUser.email = email || currentUser.email;
     }
 
@@ -94,7 +98,7 @@ const PopoutUpdateInfo = ({}) => {
               placeholder="Username"
               className="form__input"
               id="username"
-            />  
+            />
             <label htmlFor="username" className="form__label">
               Username
             </label>
@@ -107,6 +111,16 @@ const PopoutUpdateInfo = ({}) => {
             />
             <label htmlFor="fullName" className="form__label">
               Name
+            </label>
+
+            <input
+              type="text"
+              placeholder="Biography"
+              className="form__input"
+              id="Biography"
+            />
+            <label htmlFor="Biography" className="form__label">
+              Biography
             </label>
 
             <input

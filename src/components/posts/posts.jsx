@@ -4,7 +4,7 @@ import { Post } from "../post/post";
 import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, infiniteScroll }) => {
   const [page, setPage] = useState(1);
   const loader = useRef(null);
   const [displayPosts, setDisplayPosts] = useState([]);
@@ -15,13 +15,18 @@ const Posts = ({ posts }) => {
     if (postCounter >= posts.length) return;
     setDisplayPosts((prevPosts) => {
       const newPosts = [...prevPosts];
-      for (let i = postCounter; i < postCounter + 5; i++) {
+      for (
+        let i = postCounter;
+        i < Math.min(postCounter + 5, posts.length);
+        i++
+      ) {
         if (posts[i]) {
           newPosts.push(posts[i]);
         }
       }
       return newPosts;
     });
+
     setPostCounter((prev) => prev + 5);
   };
 
@@ -60,10 +65,11 @@ const Posts = ({ posts }) => {
 
   return (
     <div className="posts">
-      {displayPosts.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
-      <div ref={loader} />
+      {infiniteScroll &&
+        displayPosts.map((post) => <Post post={post} key={post.id} />)}
+      {!infiniteScroll &&
+        posts.map((post) => <Post post={post} key={post.id} />)}
+      {infiniteScroll && <div ref={loader} />}
     </div>
   );
 };
