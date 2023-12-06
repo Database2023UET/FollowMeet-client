@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import PopoutUpdateInfo from "../components/popoutUpdateInfo/popoutUpdateInfo";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 

@@ -5,16 +5,20 @@ import { AuthContextProvider } from "./context/authContext";
 import App from "./app";
 import { AlertContextProvider } from "./context/alertContext";
 import { CloudinaryContextProvider } from "./context/cloudinaryContext";
+import { Update } from "@mui/icons-material";
+import { UpdateInfoContextProvider } from "./context/updateInfoContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <DarkModeContextProvider>
       <AlertContextProvider>
+        <UpdateInfoContextProvider>
         <AuthContextProvider>
           <CloudinaryContextProvider>
             <App />
           </CloudinaryContextProvider>
         </AuthContextProvider>
+        </UpdateInfoContextProvider>
       </AlertContextProvider>
     </DarkModeContextProvider>
   </React.StrictMode>
