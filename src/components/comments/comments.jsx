@@ -90,7 +90,7 @@ const Comments = ({ postId, onAddComment }) => {
         <button onClick={handleSendComment}>Send</button>
       </div>
       {comments.map((comment) => (
-        <div className="comment" key={comment.ownerId}>
+        <div className="comment" key={comment.id}>
           <img
             src={comment.commentOwnerInfos.profilePicture}
             alt=""

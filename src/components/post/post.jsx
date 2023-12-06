@@ -21,7 +21,7 @@ export const Post = ({ post }) => {
 
   const [reacted, setReacted] = useState(false);
   const [reacts, setReacts] = useState(0);
-  
+
   const fetchNumComments = async () => {
     try {
       const res = await axios.get(
@@ -84,7 +84,6 @@ export const Post = ({ post }) => {
     fetchReacts();
     fetchNumComments();
   }, []);
-  
 
   const navigate = useNavigate();
 
@@ -111,13 +110,13 @@ export const Post = ({ post }) => {
     const fetchDetails = async () => {
       await fetchReacts();
       await fetchNumComments();
-    };  
+    };
 
     fetchDetails();
 
     // Then fetch comments every 5 seconds
     const intervalId = setInterval(fetchDetails, 5000);
-  
+
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
@@ -150,7 +149,11 @@ export const Post = ({ post }) => {
               >
                 <span className="name">{postOwner.fullName}</span>
               </div>
-              <span className="date">{getTime(post.createdAt)} ago</span>
+              <span className="date">
+                {getTime(post.createdAt) === "Just now"
+                  ? "Just now"
+                  : getTime(post.createdAt) + " ago"}
+              </span>
             </div>
           </div>
           <MoreHorizIcon />
@@ -179,7 +182,9 @@ export const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments postId={post.id} onAddComment={onAddComment} />}
+        {commentOpen && (
+          <Comments postId={post.id} onAddComment={onAddComment} />
+        )}
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ const Profile = () => {
   const [fetchError, setFetchError] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
   const { showPopout, hidePopout } = useContext(UpdateInfoContext);
+  const [userPosts, setUserPosts] = useState([]);
 
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -67,6 +68,22 @@ const Profile = () => {
     fetchIsFollowed();
   }, [profileOwner]);
 
+  const fetchUserPosts = async () => {
+    const id = await fetchIdOfProfileOwner(username);
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/post/getPostsOfUser?userId=${id}`
+      );
+      setUserPosts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserPosts();
+  }, [profileOwner]);
+
   const navigate = useNavigate();
 
   if (fetchError) {
@@ -101,8 +118,6 @@ const Profile = () => {
 
   const handleUpdateInfo = () => {
     showPopout(currentUser);
-    //popup to update info
-    //then request to update info
   };
 
   return (
@@ -143,7 +158,7 @@ const Profile = () => {
                   <MoreVertIcon />
                 </div>
               </div>
-              {/* <Posts /> */}
+              <Posts posts={userPosts} />
             </div>
           </>
         </div>
