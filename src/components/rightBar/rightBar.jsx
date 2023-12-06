@@ -8,6 +8,7 @@ import { getTime } from "../../utils/getTime";
 const RightBar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [followings, setFollowings] = useState([]);
+  const [activities, setActivities] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
   const navigate = useNavigate();
@@ -32,9 +33,28 @@ const RightBar = () => {
       console.log(err);
     }
   };
+  const fetchActivities = async () => {
+    try {
+      const res = await axios.get(
+        `${API_ENDPOINT}/api/activities/getLatestActivities?userId=${currentUser.id}`
+      );
+      const acts = res.data;
+      for (const element of acts) {
+        element.owner = await axios.get(
+          `${API_ENDPOINT}/api/user/getUserInfos?userId=${element.ownerId}`
+        );
+        element.owner = element.owner.data;
+      }
+      setActivities(acts);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     fetchSuggestions();
     fetchFollowings();
+    fetchActivities();
   }, []);
 
   const handleDismiss = (e) => {
@@ -58,7 +78,9 @@ const RightBar = () => {
     }
     let newNode = e.target.parentNode;
     newNode.innerHTML = `
-        <Button style="background-color: #5271ff !important">Followed</Button>`;
+        <Button style="background-color: #627beb !important;
+          border: 3px solid #00d49 !important;
+        ">Followed</Button>`;
   };
 
   return (
@@ -116,30 +138,25 @@ const RightBar = () => {
 
         <div className="item">
           <span>Latest Activities</span>
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
-                alt="Avatar"
-              />
-              <p>
-                <span>Megatron</span> liked your post
-              </p>
+          {activities.map((activity) => (
+            <div className="user" key={activity.key}>
+              <div className="userInfo">
+                <img src={activity.owner.profilePicture} alt="Avatar" />
+                <p>
+                  <span>{activity.owner.fullName}</span> {activity.message}
+                </p>
+              </div>
+              <span className="status_info">
+                {getTime(activity.createdAt) === "Just now" ? (
+                  "Just now"
+                ) : (
+                  <div className="status_info">
+                    {getTime(activity.createdAt)} ago
+                  </div>
+                )}
+              </span>
             </div>
-            <span className="status_info">3 min ago</span>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://i.ytimg.com/vi/UowDFX1NTB8/maxresdefault.jpg"
-                alt="Avatar"
-              />
-              <p>
-                <span>Megatron</span> commented on your post
-              </p>
-            </div>
-            <span className="status_info">1 min ago</span>
-          </div>
+          ))}
         </div>
       </div>
     </div>
