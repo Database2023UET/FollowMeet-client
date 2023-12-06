@@ -15,7 +15,11 @@ const PopoutAlert = ({ info }) => {
   const { hideAlert } = useContext(AlertContext);
   return (
     <div className="popoutAlert">
-      <div className="background" onClick={hideAlert} />
+      {info.noCancel ? (
+        <div className="background" />
+      ) : (
+        <div className="background" onClick={hideAlert} />
+      )}
       <div className="alert">
         {info.name === "Positive" ? (
           <FontAwesomeIcon
