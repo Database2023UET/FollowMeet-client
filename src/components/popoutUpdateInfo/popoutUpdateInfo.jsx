@@ -6,30 +6,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AlertContext } from "../../context/alertContext";
+import { AuthContext } from "../../context/authContext";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
-const PopoutUpdateInfo = ({ }) => {
-
+const PopoutUpdateInfo = ({}) => {
   const navigate = useNavigate();
   const { showAlert, hideAlert } = useContext(AlertContext);
 
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let messageFailed = "";
     const username = document.getElementById("username").value;
-    const name = document.getElementById("name").value;
+    const fullName = document.getElementById("fullName").value;
     const email = document.getElementById("email").value;
     const data = {
-      userId : currentUser.id,
+      userId: currentUser.id,
       username: username,
-      name: name,
+      fullName: fullName,
       email: email,
     };
     if (!username) delete data.username;
-    if (!name) delete data.name;
+    if (!fullName) delete data.fullName;
     if (!email) delete data.email;
     try {
       await axios.post(`${API_ENDPOINT}/api/user/updateInfo`, data);
@@ -42,10 +42,10 @@ const PopoutUpdateInfo = ({ }) => {
       const res = await axios.get(
         `${API_ENDPOINT}/api/user/getUserInfos?userId=${currentUser.id}`
       );
-      localStorage.setItem("user", JSON.stringify(res.data));
+      setCurrentUser(res.data);
     } catch (err) {
       currentUser.username = username || currentUser.username;
-      currentUser.fullName = name || currentUser.fullName;
+      currentUser.fullName = fullName || currentUser.fullName;
       currentUser.email = email || currentUser.email;
     }
 
@@ -59,6 +59,7 @@ const PopoutUpdateInfo = ({ }) => {
       };
       showAlert(info);
       setTimeout(() => {
+        window.location.reload();
         hideAlert();
       }, 750);
       if (username) {
@@ -71,40 +72,63 @@ const PopoutUpdateInfo = ({ }) => {
         showButton: false,
       };
       showAlert(info);
+      setTimeout(() => {
+        hideAlert();
+      }, 1500);
     }
-  }
+  };
 
   const { hidePopout } = useContext(UpdateInfoContext);
   return (
     <div className="popoutUpdateInfo">
       <div className="background" onClick={hidePopout} />
       <div className="alert">
-        <h1>Update Profile Form</h1>
+        <h1>Update Profile</h1>
         <div className="container">
-            <div className="cta-form">
-            <h2>Fill out the form to update your profile!</h2> 
-            <h3>Leave it blank if you do not want to change</h3>
-            </div>
-            <form action="" className="form">
-            
-            <input type="text" placeholder="Username" className="form__input" id="username"/>
-            <label htmlFor="username" className="form__label">Username</label>
+          <div className="cta-form">
+            <h3></h3>
+          </div>
+          <form action="" className="form">
+            <input
+              type="text"
+              placeholder="Username"
+              className="form__input"
+              id="username"
+            />  
+            <label htmlFor="username" className="form__label">
+              Username
+            </label>
 
-            <input type="text" placeholder="Name" className="form__input" id="name"/>
-            <label htmlFor="name" className="form__label">Name</label>
+            <input
+              type="text"
+              placeholder="Name"
+              className="form__input"
+              id="fullName"
+            />
+            <label htmlFor="fullName" className="form__label">
+              Name
+            </label>
 
-            <input type="email" placeholder="Email" className="form__input" id="email"/>
-            <label htmlFor="email" className="form__label">Email</label>
-            
+            <input
+              type="email"
+              placeholder="Email"
+              className="form__input"
+              id="email"
+            />
+            <label htmlFor="email" className="form__label">
+              Email
+            </label>
+
             <div className="buttons-container">
-              <button className="button-arounder" onClick={handleSubmit}>Submit</button>
+              <button className="button-arounder" onClick={handleSubmit}>
+                Submit
+              </button>
             </div>
-            </form>
+          </form>
         </div>
       </div>
     </div>
   );
 };
-  
+
 export default PopoutUpdateInfo;
-  
