@@ -74,6 +74,7 @@ const RightBar = () => {
         followingId: suggestionId,
       });
     } catch (err) {
+      window.location.reload();
       console.log(err);
     }
     let newNode = e.target.parentNode;
