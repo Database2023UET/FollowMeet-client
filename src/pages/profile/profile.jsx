@@ -32,12 +32,12 @@ const Profile = () => {
         setFetchError(true);
       }
     };
-  
-    fetchData();  
+
+    fetchData();
   }, []);
 
   const fetchIdOfProfileOwner = async (username) => {
-    let id = new URLSearchParams(location.search).get('id');
+    let id = new URLSearchParams(location.search).get("id");
     if (id) return id;
     try {
       const res = await axios.get(
@@ -74,15 +74,25 @@ const Profile = () => {
   const handleFollow = async () => {
     const id = await fetchIdOfProfileOwner(username);
     if (isFollowed) {
-      await axios.post(`${API_ENDPOINT}/api/follow/unfollowUser`, {
-        userId: currentUser.id,
-        followingId: id,
-      });
+      try {
+        await axios.post(`${API_ENDPOINT}/api/follow/unfollowUser`, {
+          userId: currentUser.id,
+          followingId: id,
+        });
+      } catch (err) {
+        window.location.reload();
+        console.log(err);
+      }
     } else {
-      await axios.post(`${API_ENDPOINT}/api/follow/followUser`, {
-        userId: currentUser.id,
-        followingId: id,
-      });
+      try {
+        await axios.post(`${API_ENDPOINT}/api/follow/followUser`, {
+          userId: currentUser.id,
+          followingId: id,
+        });
+      } catch (err) {
+        window.location.reload();
+        console.log(err);
+      }
     }
     fetchIsFollowed();
   };
