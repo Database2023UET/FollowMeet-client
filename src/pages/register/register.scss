@@ -1,5 +1,5 @@
 .register {
-    height: 100vh;
+    height: 100svh;
     background-color: rgb(193, 190, 255);
     display: flex;
 
@@ -12,6 +12,6 @@
         min-height: 600px;
         overflow: hidden;
         margin-left: 20vw;
-        margin-top: 10vh;
+        margin-top: 10svh;
     }
 }

@@ -3,9 +3,9 @@
 .RightBar {
     @include themify($themes) {
         position: fixed;
-        top: 7vh;
+        top: 7svh;
         right: 0;
-        height: 90vh;
+        height: 90svh;
         width: 25vw;
         overflow: scroll;
         background-color: themed(bgSoft);
@@ -28,7 +28,6 @@
             gap: 30px;
 
             .item {
-                border: 1px solid lightgray;
                 padding: 20px;
                 border-radius: 10px;
                 background-color: themed(bg);
@@ -43,7 +42,7 @@
                 }
 
                 .status_info {
-                    color: rgba(211, 211, 211, 0.512);
+                    color: themed(textColorSoft2);
                     font-size: small;
                     font-weight: 500;
                 }
@@ -63,6 +62,7 @@
                         align-items: center;
                         gap: 10px;
                         margin-right: 0.4rem;
+                        cursor: pointer;
 
                         img {
                             width: 40px;

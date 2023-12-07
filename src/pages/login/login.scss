@@ -1,18 +1,18 @@
 @import "../../themes.scss";
 
 .login {
-    height: 100vh;
+    height: 100svh;
     background-color: rgb(193, 190, 255);
     display: flex;
 
     .card {
         width: 60vw;
-        height: 80vh;
+        height: 80svh;
         display: flex;
         background-color: white;
         border-radius: 10px;
         margin-left: 20vw;
-        margin-top: 10vh;
+        margin-top: 10svh;
         overflow: hidden;
 
         .left {
@@ -32,7 +32,7 @@
 
             h1 {
                 font-size: 6vw;
-                line-height: 10vh;
+                line-height: 10svh;
                 font-weight: bold;
                 color: yellowgreen;
             }

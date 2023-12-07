@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.13.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -17,20 +19,20 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
-    "argon2": "^0.31.2",
     "axios": "^1.6.0",
-    "cloudinary": "^1.41.0",
+    "bcryptjs-react": "^2.4.6",
+    "core-js": "^3.33.3",
     "eslint-plugin-prettier": "^5.0.0",
     "express": "^4.18.2",
     "mysql": "^2.18.1",
     "nodemon": "^3.0.1",
-    "object-hash": "^3.0.0",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.16.0",
     "react-router-dom": "^6.16.0",
-    "sass": "^1.68.0"
+    "sass": "^1.68.0",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

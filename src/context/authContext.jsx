@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import hash from "object-hash";
+import PopoutUpdateInfo from "../components/popoutUpdateInfo/popoutUpdateInfo";
 
 const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
@@ -12,39 +12,43 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    console.log(API_ENDPOINT);
+    // console.log(API_ENDPOINT);
     try {
       const pseudoUser = {
         username: "admin",
         password: "admin",
         fullName: "Admin",
-        profilePicture: "https://i.imgur.com/6VBx3io.png",
+        profilePicture:
+          "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
+        coverPicture:
+          "https://cdna.artstation.com/p/assets/images/images/020/174/718/large/amarth-chen-9.jpg?1566698233",
         id: 1,
       };
 
       if (inputs.username === pseudoUser.username) {
         if (inputs.password === pseudoUser.password) {
           setCurrentUser(pseudoUser);
-          alert("Login successfully");
           return;
         }
       }
       const tmpInputs = { ...inputs };
-      tmpInputs.password = hash(tmpInputs.password);
       const res = await axios.post(`${API_ENDPOINT}/api/auth/login`, tmpInputs);
       //add lastLogin later
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
-        setCurrentUser(tmpInputs);
-        alert("Login successfully");
+        const user = await axios.get(
+          `${API_ENDPOINT}/api/user/getUserInfos?userId=${res.data}`
+        );
+        setCurrentUser(user.data);
+        // setCurrentUser(tmpInputs);
+        // setCurrentUser(pseudoUser);
       } else {
         // alert("Wrong username or password");
-        console.log(res.data);
+        // console.log(res.data);
         throw new Error("Wrong username or password");
       }
     } catch (err) {
-      console.log(err);
-      alert("Wrong username or password");
+      // console.log(err);
       throw new Error("Wrong username or password");
     }
   };
@@ -52,7 +56,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem("user");
-    //request logout (lastLogout)
+    axios.post(`${API_ENDPOINT}/api/auth/logout`, { userId: currentUser.id });
   };
 
   useEffect(() => {
@@ -61,7 +65,9 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <>
-      <AuthContext.Provider value={{ currentUser, login, logout }}>
+      <AuthContext.Provider
+        value={{ currentUser, setCurrentUser, login, logout }}
+      >
         {children}
       </AuthContext.Provider>
     </>

@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./login.scss";
+import { AlertContext } from "../../context/alertContext";
+import { DarkModeContext } from "../../context/darkModeContext";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -12,6 +14,7 @@ const Login = () => {
   });
 
   const { login } = useContext(AuthContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const navigate = useNavigate();
 
@@ -19,17 +22,40 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(inputs);
-      navigate("/");
-      if (inputs.username === "admin") {
+      const info = {
+        name: "Positive",
+        message: "Login successful",
+        showButton: false,
+      };
+      showAlert(info);
+      //wait for 1 second
+      setTimeout(() => {
+        navigate("/");
         window.location.reload();
-      }
+      }, 750);
     } catch (err) {
+      const info = {
+        name: "Negative",
+        message: err.message,
+        showButton: false,
+      };
+      showAlert(info);
+      setTimeout(() => hideAlert(), 750);
       navigate("/login");
     }
   };
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleCapslock = (e) => {
+    const CapslockWarning = document.getElementById("CapslockWarning");
+    if (e.getModifierState("CapsLock")) {
+      CapslockWarning.style.display = "block";
+    } else {
+      CapslockWarning.style.display = "none";
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -58,12 +84,20 @@ const Login = () => {
                 placeholder="Password"
                 name="password"
                 onChange={handleChange}
+                onKeyUp={handleCapslock}
               />
               <FontAwesomeIcon
                 className="showPassword"
                 icon={showPassword ? faEye : faEyeSlash}
                 onClick={() => setShowPassword(!showPassword)}
               />
+            </div>
+            <div
+              id="CapslockWarning"
+              className="CapslockWarning"
+              style={{ color: "red", display: "none" }}
+            >
+              WARNING! Caps lock is ON.
             </div>
             <button onClick={handleLogin}>Login</button>
           </form>
