@@ -24,6 +24,9 @@
             position: relative;
 
             .cover {
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -31,15 +34,44 @@
                 border-top-left-radius: 10px;
             }
 
+            .updateCoverBtn {
+                position: absolute;
+                right: 0.9rem;
+                bottom: 0.8rem;
+                color: whitesmoke;
+                background-color: #7b7d85;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1.5rem;
+                font-weight: 500;
+            }
+
             .profilePic {
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
                 width: 13rem;
                 height: 13rem;
                 border-radius: 50%;
                 object-fit: cover;
                 position: absolute;
-                left: 7vw;
+                left: 5vw;
                 margin: auto;
                 top: 200px;
+            }
+
+            .updatePFPBtn {
+                position: absolute;
+                top: calc(200px + 10rem);
+                left: 5vw;
+                color: whitesmoke;
+                background-color: #7b7d85;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1.5rem;
+                font-weight: 500;
             }
         }
         .profileContainer {
@@ -73,6 +105,20 @@
                     height: 30svh;
                     padding: 20px;
                     margin-top: 100px;
+                }
+
+                .saveImg {
+                    position: absolute;
+                    top: 46svh;
+                    right: 50svw;
+                    color: whitesmoke;
+                    background-color: #7b7d85;
+                    padding: 10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                    display: none;
                 }
 
                 .left {

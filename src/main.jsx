@@ -4,7 +4,6 @@ import { DarkModeContextProvider } from "./context/darkModeContext";
 import { AuthContextProvider } from "./context/authContext";
 import App from "./app";
 import { AlertContextProvider } from "./context/alertContext";
-import { CloudinaryContextProvider } from "./context/cloudinaryContext";
 import { Update } from "@mui/icons-material";
 import { UpdateInfoContextProvider } from "./context/updateInfoContext";
 
@@ -14,9 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AlertContextProvider>
         <AuthContextProvider>
           <UpdateInfoContextProvider>
-            <CloudinaryContextProvider>
-              <App />
-            </CloudinaryContextProvider>
+            <App />
           </UpdateInfoContextProvider>
         </AuthContextProvider>
       </AlertContextProvider>
