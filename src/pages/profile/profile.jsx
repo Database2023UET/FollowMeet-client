@@ -217,6 +217,8 @@ const Profile = () => {
         setTimeout(() => {
           hideAlert();
         }, 750);
+        currentUser.profilePicture = PFPUrl;
+        currentUser.coverPicture = coverUrl;
         setIsActionDone(true);
         window.location.reload();
       } catch (err) {
@@ -235,6 +237,8 @@ const Profile = () => {
           coverPicture: coverUrl,
         });
         setIsActionDone(true);
+        currentUser.profilePicture = PFPUrl;
+        currentUser.coverPicture = coverUrl;
         hideAlert();
         window.location.reload();
       } catch (err) {
@@ -261,6 +265,8 @@ const Profile = () => {
           PFP: PFPUrl,
         });
         setIsActionDone(true);
+        currentUser.profilePicture = PFPUrl;
+        currentUser.coverPicture = coverUrl;
         hideAlert();
         const info = {
           name: "Positive",
