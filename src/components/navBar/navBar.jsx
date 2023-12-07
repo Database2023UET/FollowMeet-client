@@ -13,13 +13,32 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import "./navBar.scss";
 import { AuthContext } from "../../context/authContext";
+import { AlertContext } from "../../context/alertContext";
 
 const NavBar = () => {
-  const { toggle, darkMode } = useContext(DarkModeContext);
+  const { toggle, darkMode, getTheme } = useContext(DarkModeContext);
   const { currentUser, logout } = useContext(AuthContext);
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const handleLogout = () => {
-    logout();
+    const info = {
+      name: "Logout",
+      message: "Are you sure you want to logout?",
+      showButton: true,
+      confirmText: "Yes",
+      declineText: "No",
+      handleConfirm: () => {
+        setTimeout(() => {
+          logout();
+          navigate("/login");
+          hideAlert();
+        }, 500);
+      },
+      handleDecline: () => {
+        hideAlert();
+      },
+    };
+    showAlert(info);
   };
 
   const navigate = useNavigate();
@@ -37,7 +56,6 @@ const NavBar = () => {
             window.location.reload();
           }}
         />
-        {console.log(currentUser)}
         <HomeOutlinedIcon
           onClick={() => {
             navigate("/");
@@ -51,7 +69,7 @@ const NavBar = () => {
         ) : (
           <WbSunnyOutlinedIcon className="NavButton" onClick={toggle} />
         )}
-        <GridViewOutlinedIcon className="NavButton" />
+        {/* <GridViewOutlinedIcon className="NavButton" /> */}
         <div className="search">
           <SearchOutlinedIcon className="NavButton" />
           <input type="text" placeholder="Search..." />
@@ -61,7 +79,7 @@ const NavBar = () => {
         <PersonOutlinedIcon
           className="NavButton"
           onClick={() => {
-            navigate(`/profile/${currentUser.id}`);
+            navigate(`/profile/${currentUser.username}`);
             window.scrollTo(0, 0);
           }}
         />
@@ -72,14 +90,14 @@ const NavBar = () => {
             src={currentUser.profilePicture}
             alt="Avatar"
             onClick={() => {
-              navigate(`/profile/${currentUser.id}`);
+              navigate(`/profile/${currentUser.username}`);
               window.scrollTo(0, 0);
               window.location.reload();
             }}
           />
           <span
             onClick={() => {
-              navigate(`/profile/${currentUser.id}`);
+              navigate(`/profile/${currentUser.username}`);
               window.scrollTo(0, 0);
               window.location.reload();
             }}

@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./register.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import hash from "object-hash";
+import { AlertContext } from "../../context/alertContext";
 
-const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT; 
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -16,6 +16,8 @@ const Register = () => {
     fullName: "",
     gender: 1,
   });
+
+  const { showAlert, hideAlert } = useContext(AlertContext);
 
   const handleChange = (e) => {
     if (e.target.name === "male") {
@@ -33,23 +35,53 @@ const Register = () => {
 
     try {
       const tmpInputs = { ...inputs };
-      tmpInputs.password = hash(tmpInputs.password);
-      console.log(tmpInputs);
-      const res = await axios.post(API_ENDPOINT + "/api/auth/register", tmpInputs);
+      // console.log(tmpInputs);
+      const res = await axios.post(
+        API_ENDPOINT + "/api/auth/register",
+        tmpInputs
+      );
       if (res.status === 200) {
-        alert("Registered Successfully");
+        const info = {
+          name: "Positive",
+          message: res.data,
+          showButton: false,
+        };
+        showAlert(info);
+        setTimeout(() => {
+          hideAlert();
+        }, 750);
         navigate("/login");
       } else {
-        alert(res.data);
+        const info = {
+          name: "Negative",
+          message: res.data,
+          showButton: false,
+        };
+        showAlert(info);
         navigate("/register");
       }
     } catch (err) {
-      alert(err.response.data);
+      const info = {
+        name: "Negative",
+        message: err.response.data,
+        showButton: false,
+      };
+      showAlert(info);
+      setTimeout(() => hideAlert(), 1500);
       navigate("/register");
     }
   };
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleCapslock = (e) => {
+    const CapslockWarning = document.getElementById("CapslockWarning");
+    if (e.getModifierState("CapsLock")) {
+      CapslockWarning.style.display = "block";
+    } else {
+      CapslockWarning.style.display = "none";
+    }
+  };
 
   return (
     <div className="login">
@@ -75,12 +107,20 @@ const Register = () => {
                 placeholder="Password"
                 name="password"
                 onChange={handleChange}
+                onKeyUp={handleCapslock}
               />
               <FontAwesomeIcon
                 className="showPassword"
                 icon={showPassword ? faEye : faEyeSlash}
                 onClick={() => setShowPassword(!showPassword)}
               />
+            </div>
+            <div
+              id="CapslockWarning"
+              className="CapslockWarning"
+              style={{ color: "red", display: "none" }}
+            >
+              WARNING! Caps lock is ON.
             </div>
             <input
               type="text"

@@ -13,9 +13,12 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "./context/darkModeContext.jsx";
 import { AuthContext } from "./context/authContext.jsx";
+import Page404 from "./pages/page404/page404.jsx";
+import { UpdateInfoContext } from "./context/updateInfoContext.jsx";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -44,6 +47,19 @@ const App = () => {
     );
   };
 
+  const Layout404 = () => {
+    document.body.className = `theme-${darkMode ? "dark" : "light"}`;
+
+    document.body.style.backgroundColor = darkMode ? "#333" : "#f6f3f3";
+
+    return (
+      <div>
+        <NavBar />
+        <Outlet />
+      </div>
+    );
+  };
+
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
       return <Navigate to="/login" />;
@@ -65,9 +81,13 @@ const App = () => {
           element: <Home />,
         },
         {
-          path: "/profile/:id",
+          path: "/profile/:username",
           element: <Profile />,
         },
+        {
+          path: "/profile",
+          element: <Profile />,
+        }
       ],
     },
     {
@@ -77,6 +97,16 @@ const App = () => {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "*",
+      element: <Layout404 />,
+      children: [
+        {
+          path: "*",
+          element: <Page404 />,
+        },
+      ],
     },
   ]);
 
